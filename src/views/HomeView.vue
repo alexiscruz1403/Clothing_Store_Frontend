@@ -1,9 +1,13 @@
-<script setup>
-  import { HeartHandshake } from 'lucide-vue-next'
-</script>
-
 <template>
-  <main class="bg-red-100 h-screen flex items-center justify-center">
-    <HeartHandshake />
+  <main class="bg-black flex flex-col min-h-screen gap-2">
+      <Header />
+      <Footer />
   </main>
 </template>
+
+<script setup>
+
+import Header from '@/components/layout/Header.vue';
+import Footer from '@/components/layout/Footer.vue';
+
+</script>
