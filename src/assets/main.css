@@ -3,30 +3,36 @@
 /** 
 Paleta de colores:
 - Fondo del sitio: #E8DCCB (Beige claro)
- - Hover: #D6C8B5 (Beige más oscuro)
+    - Hover: #D6C8B5 (Beige más oscuro)
 - Texto primario: #2E2E2E (Gris oscuro)
 - Texto secundario: #4F4F4F (Gris medio)
 - Texto terciario: #888888 (Gris claro)
 - Boton primario: #355C7D (Azul oscuro)
- - Hover: #2C4B66 (Azul más oscuro)
- - Active: #22384F (Azul aún más oscuro)
+    - Hover: #2C4B66 (Azul más oscuro)
+    - Active: #22384F (Azul aún más oscuro)
 - Boton secundario: #5C6B7A (Azul grisáceo) 
- - Hover: #4A5864 (Azul grisáceo más oscuro)
- - Active: 	#3A4752 (Azul grisáceo aún más oscuro)
+    - Hover: #4A5864 (Azul grisáceo más oscuro)
+    - Active: 	#3A4752 (Azul grisáceo aún más oscuro)
 - Boton de confirmación: #4CAF50 (Verde)
- - Hover: #43A047 (Verde más oscuro)
- - Active: #388E3C (Verde aún más oscuro)
+    - Hover: #43A047 (Verde más oscuro)
+    - Active: #388E3C (Verde aún más oscuro)
 - Boton de cancelación: #C0392B (Rojo)
- - Hover: #A93226 (Rojo más oscuro)
- - Active: #922B21 (Rojo aún más oscuro)
+    - Hover: #A93226 (Rojo más oscuro)
+    - Active: #922B21 (Rojo aún más oscuro)
+- Boton de Iniciar sesion: #3F3F3F
+    - Hover: #2F2F2F (Gris oscuro)
+    - Active: #1F1F1F (Gris más oscuro)
+- Boton de Registrarse: #A46B50 
+    - Hover: #935E50 (Rosa oscuro)
+    - Active: #7C4D42 (Rosa aún más oscuro)
 - Fondo de tarjetas: #FFFFFF (Blanco)
- - Hover: #F9F9F9 (Blanco sucio)
- - Active: #F0F0F0 (Gris muy claro)
-- Fondo intermedios: #F6F4F1 (Beige claro)
- - Hover: #ECE9E4 (Beige más oscuro)
- - Active: #E2DED8 (Beige aún más oscuro)
+    - Hover: #F9F9F9 (Blanco sucio)
+    - Active: #F0F0F0 (Gris muy claro)
+- Fondo intermedios: #A89272 (Beige medio)
+    - Hover: #7E6E56 (Beige más oscuro)
+    - Active: #3A3227 (Beige aún más oscuro)
 - Sombras: #D4CFC7
 - Tipografia:
- - Textos: DMSans
- - Botones: Nunito
+    - Textos: DMSans
+    - Botones: Nunito
 */

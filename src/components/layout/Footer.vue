@@ -1,5 +1,5 @@
 <template>
-    <footer class="bg-[#E8DCCB] flex p-2 md:p-5 justify-between text-[#2E2E2E]">
+    <footer class="bg-[#E8DCCB] flex p-2 md:p-5 justify-between text-[#2E2E2E] border-[#999999] border-t-2">
         <div class="flex flex-col gap-2">
             <p class="font-bold">Servicio</p>
             <div class="text-sm flex flex-col gap-1">

@@ -1,5 +1,5 @@
 <template>
-    <header class="bg-[#E8DCCB] flex justify-between items-center p-5 text-[#2E2E2E]">
+    <header class="bg-[#E8DCCB] flex justify-between items-center p-5 text-[#2E2E2E] border-[#999999] border-b-2">
         <div class="order-1 md:hidden">
             <Menu class="h-9 md:h-6 w-9 md:w-6" @click="handleNavOptionMenuClick"/>
             <div v-if="navOptionMenu" class="absolute left-5 top-14 md:top-10 bg-white shadow-lg rounded-md px-4 py-3 w-52 flex flex-col gap-1">
@@ -14,9 +14,9 @@
         </div>
         <button class="cursor-pointer order-2 md:order-1">Logo</button>
         <nav class="hidden md:flex md:items-center md:order-2">
-            <button class="hover:bg-[#D4C4A8] p-3 rounded transition-colors duration-300 cursor-pointer">Hombres</button>
-            <button class="hover:bg-[#D4C4A8] p-3 rounded transition-colors duration-300 cursor-pointer">Mujeres</button>
-            <button class="hover:bg-[#D4C4A8] p-3 rounded transition-colors duration-300 cursor-pointer">Unisex</button>
+            <button class="hover:bg-[#D4C4A8] p-3 text-lg rounded transition-colors duration-300 cursor-pointer">Hombres</button>
+            <button class="hover:bg-[#D4C4A8] p-3 text-lg rounded transition-colors duration-300 cursor-pointer">Mujeres</button>
+            <button class="hover:bg-[#D4C4A8] p-3 text-lg rounded transition-colors duration-300 cursor-pointer">Unisex</button>
         </nav>
 
         <div v-if="userIsLoggedIn" class="order-3 flex items-center gap-2">
@@ -49,8 +49,8 @@
                 </div>
             </div>
             <div class="hidden md:flex gap-2">
-                <Button type="primary" label="Iniciar Sesión" />
-                <Button type="secondary" label="Registrarse" />
+                <Button type="gray" label="Iniciar Sesión" />
+                <Button type="brown" label="Registrarse" />
             </div>
         </div>
     </header>
@@ -62,7 +62,7 @@ import { ref } from 'vue';
 import Button from '@/components/ui/Buttons/Button.vue';
 import { Menu, User, CircleUser, ShoppingCart } from 'lucide-vue-next';
 
-const userIsLoggedIn = ref(true);
+const userIsLoggedIn = ref(false);
 const userOptionsMenu = ref(false);
 const authOptionsMenu = ref(false);
 const navOptionMenu = ref(false);
