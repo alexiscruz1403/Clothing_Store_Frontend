@@ -10,15 +10,24 @@ export const useGenreStore = defineStore('genres', () => {
         }
 
         const newGenres = [
-            { genre_id: 1, genre_name: 'Hombres', genre_image: '/home/pexels-hombres.png' },
-            { genre_id: 2, genre_name: 'Mujeres', genre_image: '/home/pexels-mujeres.png' },
+            { genre_id: 1, genre_name: 'Hombres', genre_image: '/home/pexels-hombres.png', checked: false },
+            { genre_id: 2, genre_name: 'Mujeres', genre_image: '/home/pexels-mujeres.png', checked: false },
         ];
         genres.value = newGenres;
-        return newGenres;
     };
+
+    const checkGenre = (genreId) => {
+        const updatedGenres = genres.value.map((genre) => {
+            return genre.genre_id === genreId 
+                ? { ...genre, checked: true } 
+                : { ...genre, checked: false };
+        })
+        genres.value = updatedGenres;
+    }
 
     return {
         genres,
         getGenres,
+        checkGenre,
     };
 })

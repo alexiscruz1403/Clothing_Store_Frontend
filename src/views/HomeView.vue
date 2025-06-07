@@ -32,11 +32,15 @@ import GenreCard from '@/components/ui/Cards/GenreCard.vue';
 import CategoryCard from '@/components/ui/Cards/CategoryCard.vue';
 import { useGenreStore } from '@/stores/useGenresStore';
 import { useCategoriesStore } from '@/stores/useCategoriesStore';
+import { useFiltersStore } from '@/stores/useFiltersStore';
 
 const genreStore = useGenreStore();
 const categoryStore = useCategoriesStore();
 
 const genres = genreStore.getGenres();
 const categories = categoryStore.getCategories();
+
+const filtersStore = useFiltersStore();
+filtersStore.resetFilters();
 
 </script>

@@ -4,13 +4,11 @@ import { useFiltersStore } from "./useFiltersStore";
 
 const filtersStore = useFiltersStore();
 
-const { filters } = storeToRefs(filtersStore);
-
 export const useProductsStore = defineStore("products", () => {
     const products = ref([]);
 
     const getProducts = async () => {
-        const { category, genre, search } = filters.value;
+        const { category, genre, search } = filtersStore;
         const newProducts = [
             {
                 product_id: 1,

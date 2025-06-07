@@ -1,33 +1,48 @@
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { defineStore } from 'pinia';
+import { useGenreStore } from './useGenresStore';
+import { useCategoriesStore } from './useCategoriesStore';
+
+const genreStore = useGenreStore();
+const categoryStore = useCategoriesStore();
 
 export const useFiltersStore = defineStore('filters', () => {
-    const filters = ref({
-        category: null,
-        genre:null,
-        search: ''
-    })
+    const categoryFilter = ref([]);
+    const genreFilter = ref(null);
+    const searchFilter = ref('');
 
-    const setCategory = (category) => {
-        filters.value.category = category;
+    const setCategory = (categoryId) => {  
+        categoryFilter.value = categoryFilter.value.includes(categoryId) 
+            ? categoryFilter.value.filter(id => id !== categoryId) 
+            : [...categoryFilter.value, categoryId]; 
     }
 
-    const setGenre = (genre) => {
-        filters.value.genre = genre;
+    const setGenre = (genreId) => {
+        genreFilter.value = genreId;
     }
 
     const setSearch = (search) => {
-        filters.value.search = search;
+        searchFilter.value = search;
     }
 
     const resetFilters = () => {
-        setCategory(null);
-        setGenre(null);
-        setSearch('');
+        categoryFilter.value = [];
+        genreFilter.value = null;
+        searchFilter.value = '';
     }
 
+    watch(genreFilter, (newGenreId) => {
+        genreStore.checkGenre(newGenreId);
+    })
+
+    watch(categoryFilter, (newCategoryIds) => {
+        categoryStore.checkCategory(newCategoryIds);
+    });
+
     return {
-        filters,
+        categoryFilter,
+        genreFilter,
+        searchFilter,
         setCategory,
         setGenre,
         setSearch,
