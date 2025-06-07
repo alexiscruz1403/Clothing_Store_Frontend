@@ -1,22 +1,16 @@
 <template>
-    <header class="bg-[#E8DCCB] flex justify-between items-center p-5 text-[#2E2E2E] border-[#999999] border-b-2">
+    <header class="bg-[#E8DCCB] flex justify-between items-center p-5 text-[#2E2E2E] border-[#999999] border-b-2 font-['Nunito']">
         <div class="order-1 md:hidden">
             <Menu class="h-9 md:h-6 w-9 md:w-6" @click="handleNavOptionMenuClick"/>
             <div v-if="navOptionMenu" class="absolute left-5 top-14 md:top-10 bg-white shadow-lg rounded-md px-4 py-3 w-52 flex flex-col gap-1">
-                <div class="flex flex-col gap-1">
-                    <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1">Hombres</p>
-                    <div class="h-[1px] w-full bg-[#E6E6E6]"></div>
-                    <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1">Mujeres</p>
-                    <div class="h-[1px] w-full bg-[#E6E6E6]"></div>
-                    <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1">Unisex</p>
-                </div>
+                <nav class="flex flex-col divide-y divide-[#E6E6E6]">
+                    <button v-for="genre in genres" class="bg-white text-center cursor-pointer py-2" @click="handleNavClick(genre.genre_id)">{{ genre.genre_name }}</button>
+                </nav>
             </div>
         </div>
-        <button class="cursor-pointer order-2 md:order-1">Logo</button>
+        <button class="cursor-pointer order-2 md:order-1" @click="handleLogoClick">Logo</button>
         <nav class="hidden md:flex md:items-center md:order-2">
-            <button class="hover:bg-[#D4C4A8] p-3 text-lg rounded transition-colors duration-300 cursor-pointer">Hombres</button>
-            <button class="hover:bg-[#D4C4A8] p-3 text-lg rounded transition-colors duration-300 cursor-pointer">Mujeres</button>
-            <button class="hover:bg-[#D4C4A8] p-3 text-lg rounded transition-colors duration-300 cursor-pointer">Unisex</button>
+            <button v-for="genre in genres" class="hover:bg-[#D4C4A8] p-3 text-lg rounded transition-colors duration-300 cursor-pointer" @click="handleNavClick(genre.genre_id)">{{ genre.genre_name }}</button>
         </nav>
 
         <div v-if="userIsLoggedIn" class="order-3 flex items-center gap-2">
@@ -61,6 +55,14 @@ import { ref } from 'vue';
 
 import Button from '@/components/ui/Buttons/Button.vue';
 import { Menu, User, CircleUser, ShoppingCart } from 'lucide-vue-next';
+import { useGenreStore } from '@/stores/useGenresStore';
+import { useFiltersStore } from '@/stores/useFiltersStore';
+import router from '@/router';
+
+const filtersStore = useFiltersStore();
+const genreStore = useGenreStore(); 
+
+const genres = genreStore.getGenres();
 
 const userIsLoggedIn = ref(false);
 const userOptionsMenu = ref(false);
@@ -77,6 +79,17 @@ const handleAuthOptionsMenuClick = () => {
 
 const handleNavOptionMenuClick = () => {
     navOptionMenu.value = !navOptionMenu.value;
+};
+
+const handleNavClick = (genre) => {
+    filtersStore.setGenre(genre);
+    navOptionMenu.value = false;
+    router.push({ name: 'products' });
+} 
+
+const handleLogoClick = () => {
+    filtersStore.resetFilters();
+    router.push({ name: 'home' });
 };
 
 </script>

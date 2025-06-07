@@ -11,15 +11,11 @@
           </div>
         </div>
         <div class="flex flex-col md:flex-row gap-2 md:gap-5 px-2 md:px-10">
-          <GenreCard genreId="1" genreName="Hombres" genreImage="/home/pexels-hombres.png"/>
-          <GenreCard genreId="2" genreName="Mujeres" genreImage="/home/pexels-mujeres.png"/>
+          <GenreCard v-for="genre in genres" :genreId="genre.genre_id" :genreName="genre.genre_name" :genreImage="genre.genre_image" :key="genre.genre_name"/>
         </div>
         <div class="px-2 py-5 md:px-10">
           <div class="w-full flex gap-2 md:gap-5 overflow-auto">
-            <CategoryCard categoryId="1" categoryName="Remeras" categoryImage="/home/ideogram-remeras.png"/>
-            <CategoryCard categoryId="1" categoryName="Abrigos" categoryImage="/home/ideogram-abrigos.png"/>
-            <CategoryCard categoryId="1" categoryName="Pantalones" categoryImage="/home/leonardo-pantalones.png"/>
-            <CategoryCard categoryId="1" categoryName="Camisas" categoryImage="/home/leonardo-zapatillas.png"/>
+            <CategoryCard v-for="category in categories" :categoryId="category.category_id" :categoryName="category.category_name" :categoryImage="category.category_image"/>
           </div>
         </div>
       </div>
@@ -34,5 +30,13 @@ import Footer from '@/components/layout/Footer.vue';
 import Button from '@/components/ui/Buttons/Button.vue';
 import GenreCard from '@/components/ui/Cards/GenreCard.vue';
 import CategoryCard from '@/components/ui/Cards/CategoryCard.vue';
+import { useGenreStore } from '@/stores/useGenresStore';
+import { useCategoriesStore } from '@/stores/useCategoriesStore';
+
+const genreStore = useGenreStore();
+const categoryStore = useCategoriesStore();
+
+const genres = genreStore.getGenres();
+const categories = categoryStore.getCategories();
 
 </script>
