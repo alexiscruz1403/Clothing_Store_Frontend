@@ -11,7 +11,7 @@
             <div class="flex flex-col md:flex-row lg:flex-col gap-2 md:gap-5 lg:gap-2">
                 <p class="text-lg">Categorías</p>
                 <div class="flex flex-col md:flex-row lg:flex-col gap-1 md:gap-3 lg:gap-1">
-                    <Checkbox v-for="category in categories" :id="category.category_name" :label="category.category_name" :category="category.checked" @click="handleFilterCategoryClick(category.category_id)"/>
+                    <Checkbox v-for="category in categories" :id="category.category_name" :label="category.category_name" :checked="category.checked" @click="handleFilterCategoryClick(category.category_id)"/>
                 </div>
             </div>
         </div>
@@ -24,12 +24,16 @@ import Radio from '../Inputs/Radio.vue';
 import { useGenreStore } from '@/stores/useGenresStore';
 import { useCategoriesStore } from '@/stores/useCategoriesStore';
 import { useFiltersStore } from '@/stores/useFiltersStore';
+import { storeToRefs } from 'pinia';
 
 const genreStore = useGenreStore();
 const categoriesStore = useCategoriesStore();
 
-const genres = genreStore.getGenres();
-const categories = categoriesStore.getCategories();
+genreStore.getGenres();
+const { genres } = storeToRefs(genreStore);
+
+categoriesStore.getCategories();
+const { categories } = storeToRefs(categoriesStore);
 
 const filtersStore = useFiltersStore();
 
