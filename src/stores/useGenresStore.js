@@ -4,16 +4,14 @@ import { defineStore } from 'pinia';
 export const useGenreStore = defineStore('genres', () => {
     const genres = ref([]);
 
-    const getGenres = () => {
-        if(genres.value.length > 0){
-            return genres.value;
+    const fetchGenres = async () => {
+        if(genres.value.length <= 0){
+            const newGenres = [
+                { genre_id: 1, genre_name: 'Hombres', genre_image: '/home/pexels-hombres.png', checked: false },
+                { genre_id: 2, genre_name: 'Mujeres', genre_image: '/home/pexels-mujeres.png', checked: false },
+            ];
+            genres.value = newGenres;   
         }
-
-        const newGenres = [
-            { genre_id: 1, genre_name: 'Hombres', genre_image: '/home/pexels-hombres.png', checked: false },
-            { genre_id: 2, genre_name: 'Mujeres', genre_image: '/home/pexels-mujeres.png', checked: false },
-        ];
-        genres.value = newGenres;
     };
 
     const checkGenre = (genreId) => {
@@ -27,7 +25,7 @@ export const useGenreStore = defineStore('genres', () => {
 
     return {
         genres,
-        getGenres,
+        fetchGenres,
         checkGenre,
     };
 })

@@ -11,7 +11,7 @@
           </div>
         </div>
         <div class="flex flex-col md:flex-row gap-2 md:gap-5 px-2 md:px-10">
-          <GenreCard v-for="genre in genres" :genreId="genre.genre_id" :genreName="genre.genre_name" :genreImage="genre.genre_image" :key="genre.genre_name"/>
+            <GenreCard v-for="genre in genres" :genreId="genre.genre_id" :genreName="genre.genre_name" :genreImage="genre.genre_image" :key="genre.genre_name" />
         </div>
         <div class="px-2 py-5 md:px-10">
           <div class="w-full flex gap-2 md:gap-5 overflow-auto">
@@ -33,14 +33,20 @@ import CategoryCard from '@/components/ui/Cards/CategoryCard.vue';
 import { useGenreStore } from '@/stores/useGenresStore';
 import { useCategoriesStore } from '@/stores/useCategoriesStore';
 import { useFiltersStore } from '@/stores/useFiltersStore';
+import { onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
 
 const genreStore = useGenreStore();
 const categoryStore = useCategoriesStore();
-
-const genres = genreStore.getGenres();
-const categories = categoryStore.getCategories();
-
 const filtersStore = useFiltersStore();
-filtersStore.resetFilters();
+
+const { genres } = storeToRefs(genreStore);
+const { categories } = storeToRefs(categoryStore);
+
+onMounted(async () => {
+  await genreStore.fetchGenres();
+  await categoryStore.fetchCategories();
+  filtersStore.resetFilters();
+});
 
 </script>

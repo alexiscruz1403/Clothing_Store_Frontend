@@ -7,7 +7,7 @@ const filtersStore = useFiltersStore();
 export const useProductsStore = defineStore("products", () => {
     const products = ref([]);
 
-    const getProducts = async () => {
+    const fetchProducts = async () => {
         const { category, genre, search } = filtersStore;
         const newProducts = [
             {
@@ -73,11 +73,10 @@ export const useProductsStore = defineStore("products", () => {
         ];
 
         products.value = newProducts;
-        return newProducts;
     }
 
     return{
         products,
-        getProducts
+        fetchProducts
     }
 });
