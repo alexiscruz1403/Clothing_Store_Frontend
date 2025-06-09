@@ -57,12 +57,14 @@ import Button from '@/components/ui/Buttons/Button.vue';
 import { Menu, User, CircleUser, ShoppingCart } from 'lucide-vue-next';
 import { useGenreStore } from '@/stores/useGenresStore';
 import { useFiltersStore } from '@/stores/useFiltersStore';
+import { onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
 import router from '@/router';
 
 const filtersStore = useFiltersStore();
-const genreStore = useGenreStore(); 
+const genreStore = useGenreStore();
 
-const genres = genreStore.getGenres();
+const { genres } = storeToRefs(genreStore);
 
 const userIsLoggedIn = ref(false);
 const userOptionsMenu = ref(false);
@@ -91,5 +93,9 @@ const handleLogoClick = () => {
     filtersStore.resetFilters();
     router.push({ name: 'home' });
 };
+
+onMounted(() => {
+    genreStore.fetchGenres();
+})
 
 </script>

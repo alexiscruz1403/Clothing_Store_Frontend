@@ -28,9 +28,10 @@ import Loader from '@/components/ui/Loader/Loader.vue';
 import Error from '@/components/ui/Messages/Error.vue';
 import { defineAsyncComponent, onMounted, ref } from 'vue';
 import { useProductsStore } from '@/stores/useProductsStore';
+import { storeToRefs } from 'pinia';
 
 const productsStore = useProductsStore();
-const products = ref([]);
+const { products } = storeToRefs(productsStore);
 
 const hasError = ref(false);
 const errorMessage = ref('Ha ocurrido un error, por favor intente más tarde.');
@@ -45,11 +46,9 @@ const AsyncProductList = defineAsyncComponent({
 });
 
 onMounted(async () => {
-    const newProducts = await productsStore.getProducts();
+   await productsStore.fetchProducts();
     
-    if (newProducts.length > 0) {
-        products.value = newProducts;
-    } else {
+    if (products.value.length <= 0) {
         hasError.value = true;
         errorMessage.value = 'No se encontraron productos.';
     }

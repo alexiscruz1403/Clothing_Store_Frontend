@@ -25,14 +25,13 @@ import { useGenreStore } from '@/stores/useGenresStore';
 import { useCategoriesStore } from '@/stores/useCategoriesStore';
 import { useFiltersStore } from '@/stores/useFiltersStore';
 import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
 
 const genreStore = useGenreStore();
 const categoriesStore = useCategoriesStore();
 
-genreStore.getGenres();
-const { genres } = storeToRefs(genreStore);
 
-categoriesStore.getCategories();
+const { genres } = storeToRefs(genreStore);
 const { categories } = storeToRefs(categoriesStore);
 
 const filtersStore = useFiltersStore();
@@ -44,5 +43,10 @@ const handleFilterGenreClick = (genreId) => {
 const handleFilterCategoryClick = (categoryId) => {
     filtersStore.setCategory(categoryId);
 };
+
+onMounted(() => {
+    genreStore.fetchGenres();
+    categoriesStore.fetchCategories();
+});
 
 </script>
