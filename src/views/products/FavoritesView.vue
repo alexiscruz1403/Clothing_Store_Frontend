@@ -1,15 +1,15 @@
 <template>
     <Header />
     <main class="min-h-screen py-5 bg-[#E8DCCB] text-[#2E2E2E] w-full flex flex-col items-center gap-5">
-        <h1 class="text-center text-3xl font-bold">Productos</h1>
+        <h1 class="text-center text-3xl font-bold">Mis Favoritos</h1>
         <div class="w-[90%]">
             <SearchBar />
         </div>
-        <div class="w-[90%] flex flex-col gap-5 lg:flex-row lg:justify-between">
+        <div class="w-[90%] flex flex-col gap-5 lg:flex-row">
             <Filter/>
             <Suspense>
                 <Error v-if="hasError" :message="errorMessage"/>
-                <AsyncProductList v-else :products="products"/>
+                <AsyncFavoritesList v-else :products="favorites" empty-message="Aún no has agregado productos como favoritos"/>
                 <template #fallback>
                     <Loader message="Cargando productos, por favor espere."/>
                 </template>
@@ -27,16 +27,16 @@ import Filter from '@/components/ui/Sidebars/Filter.vue';
 import Loader from '@/components/ui/Loader/Loader.vue';
 import Error from '@/components/ui/Messages/Error.vue';
 import { defineAsyncComponent, onMounted, ref } from 'vue';
-import { useProductsStore } from '@/stores/useProductsStore';
+import { useFavoritesStore } from '@/stores/useFavoritesStore';
 import { storeToRefs } from 'pinia';
 
-const productsStore = useProductsStore();
-const { products } = storeToRefs(productsStore);
+const favoritesStore = useFavoritesStore();
+const { favorites } = storeToRefs(favoritesStore);
 
 const hasError = ref(false);
 const errorMessage = ref('Ha ocurrido un error, por favor intente más tarde.');
 
-const AsyncProductList = defineAsyncComponent({
+const AsyncFavoritesList = defineAsyncComponent({
     loader: () => import('@/components/ui/Lists/ProductList.vue'),
     loadingComponent: Loader,
     errorComponent: Error,
@@ -46,12 +46,7 @@ const AsyncProductList = defineAsyncComponent({
 });
 
 onMounted(async () => {
-   await productsStore.fetchProducts();
-    
-    if (products.value.length <= 0) {
-        hasError.value = true;
-        errorMessage.value = 'No se encontraron productos.';
-    }
+   await favoritesStore.fetchFavorites();
 });
 
 </script>
