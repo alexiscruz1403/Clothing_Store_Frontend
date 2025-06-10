@@ -11,8 +11,8 @@
             <p>${{ props.product_price }}</p>
             <Button type="primary" label="Agregar al carrito"/>
         </div>
-        <div class="absolute top-2 right-2 cursor-pointer">
-            <Heart :fill="heartFill"/>
+        <div class="absolute top-2 right-2 cursor-pointer z-10">
+            <Heart :fill="heartFill" @click="handleFavoriteClick"/>
         </div>
     </div>
 </template>
@@ -21,8 +21,15 @@
 import { Heart } from 'lucide-vue-next';
 import Button from '../Buttons/Button.vue';
 import { computed } from 'vue';
+import { useFavoritesStore } from '@/stores/useFavoritesStore';
+
+const favoritesStore = useFavoritesStore();
 
 const props = defineProps({
+    product_id: {
+        type: Number,
+        required: true
+    },
     product_image: {
         type: String,
         required: true
@@ -56,5 +63,26 @@ const props = defineProps({
 const heartFill = computed(() => {
     return props.product_is_in_favorites ? "black" : "white"
 });
+
+const product = computed(() => {
+    return {
+        product_id: props.product_id,
+        product_name: props.product_name,
+        product_image: props.product_image,
+        product_brand: props.product_brand,
+        product_price: props.product_price,
+        product_description: props.product_description,
+        product_is_in_cart: props.product_is_in_cart,
+        product_is_in_favorites: props.product_is_in_favorites
+    }
+});
+
+const handleFavoriteClick = () => {
+    if (props.product_is_in_favorites) {
+        favoritesStore.removeFromFavorites(product.value);
+    } else {
+        favoritesStore.addToFavorites(product.value);
+    }
+}
 
 </script>
