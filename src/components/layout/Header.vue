@@ -14,7 +14,7 @@
         </nav>
 
         <div v-if="userIsLoggedIn" class="order-3 flex items-center gap-2">
-            <button class="bg-white p-2 rounded-md hover:bg-black hover:text-white cursor-pointer hidden md:block transition-colors duration-300">
+            <button class="bg-white p-2 rounded-md hover:bg-black hover:text-white cursor-pointer hidden md:block transition-colors duration-300" @click="handleCartClick">
                 <ShoppingCart />
             </button>
             <div class="relative flex items-center justify-center">
@@ -23,8 +23,9 @@
                 </button>
                 <div v-if="userOptionsMenu" class="absolute right-0 top-9 md:top-10 bg-white shadow-lg rounded-md px-4 py-3 w-52 flex flex-col gap-1">
                     <p class="text-center text-lg font-bold py-1">Nombre de usuario</p>
-                    <div class="border border-b-2 border-l-0 border-r-0 border-t-2 py-1 flex flex-col">
+                    <div class="border border-b border-l-0 border-r-0 border-t py-1 flex flex-col">
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1">Mi perfil</p>
+                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer p-1" @click="handleFavoritesClick">Mis favoritos</p>
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1">Mis compras</p>
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer md:hidden p-1">Mi carrito</p>
                     </div>
@@ -66,7 +67,7 @@ const genreStore = useGenreStore();
 
 const { genres } = storeToRefs(genreStore);
 
-const userIsLoggedIn = ref(false);
+const userIsLoggedIn = ref(true);
 const userOptionsMenu = ref(false);
 const authOptionsMenu = ref(false);
 const navOptionMenu = ref(false);
@@ -92,6 +93,14 @@ const handleNavClick = (genre) => {
 const handleLogoClick = () => {
     filtersStore.resetFilters();
     router.push({ name: 'home' });
+};
+
+const handleCartClick = () => {
+    router.push({ name: 'cart' });
+};
+
+const handleFavoritesClick = () => {
+    router.push({ name: 'favorites' });
 };
 
 onMounted(() => {
