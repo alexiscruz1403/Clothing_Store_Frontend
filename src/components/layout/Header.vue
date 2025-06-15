@@ -13,7 +13,7 @@
             <button v-for="genre in genres" class="hover:bg-[#D4C4A8] p-3 text-lg rounded transition-colors duration-300 cursor-pointer" @click="handleNavClick(genre.genre_id)">{{ genre.genre_name }}</button>
         </nav>
 
-        <div v-if="userIsLoggedIn" class="order-3 flex items-center gap-2">
+        <div v-if="isAuthenticated" class="order-3 flex items-center gap-2">
             <button class="bg-white p-2 rounded-md hover:bg-black hover:text-white cursor-pointer hidden md:block transition-colors duration-300" @click="handleCartClick">
                 <ShoppingCart />
             </button>
@@ -58,16 +58,19 @@ import Button from '@/components/ui/Buttons/Button.vue';
 import { Menu, User, CircleUser, ShoppingCart } from 'lucide-vue-next';
 import { useGenreStore } from '@/stores/useGenresStore';
 import { useFiltersStore } from '@/stores/useFiltersStore';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import router from '@/router';
 
 const filtersStore = useFiltersStore();
 const genreStore = useGenreStore();
+const authStore = useAuthStore();
 
 const { genres } = storeToRefs(genreStore);
 
-const userIsLoggedIn = ref(true);
+const { isAuthenticated } = storeToRefs(authStore);
+
 const userOptionsMenu = ref(false);
 const authOptionsMenu = ref(false);
 const navOptionMenu = ref(false);
