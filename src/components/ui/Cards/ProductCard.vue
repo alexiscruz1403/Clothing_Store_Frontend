@@ -1,6 +1,6 @@
 <template>
     <div class="bg-white p-4 rounded-md relative">
-        <div class="flex justify-center items-center">
+        <div class="flex justify-center items-center cursor-pointer" @click="handleCardClick">
             <img :src="props.product_image" :alt="props.product_description" class="size-40">
         </div>
         <div class="flex flex-col gap-2">
@@ -9,7 +9,7 @@
                 <p class="text-[#4F4F4F] text-sm">{{ props.product_brand }}</p>
             </div>
             <p>${{ props.product_price }}</p>
-            <Button type="primary" label="Agregar al carrito"/>
+            <Button type="primary" label="Agregar al carrito" :onClick="handleCartClick"/>
         </div>
         <div class="absolute top-2 right-2 cursor-pointer z-10">
             <Heart :fill="heartFill" @click="handleFavoriteClick"/>
@@ -22,6 +22,7 @@ import { Heart } from 'lucide-vue-next';
 import Button from '../Buttons/Button.vue';
 import { computed } from 'vue';
 import { useFavoritesStore } from '@/stores/useFavoritesStore';
+import router from '@/router';
 
 const favoritesStore = useFavoritesStore();
 
@@ -83,6 +84,14 @@ const handleFavoriteClick = () => {
     } else {
         favoritesStore.addToFavorites(product.value);
     }
+}
+
+const handleCardClick = () => {
+    router.push({ name: 'productDetail', params: { id: props.product_id } });
+}
+
+const handleCartClick = () => {
+    router.push({ name: 'productDetail', params: { id: props.product_id } });
 }
 
 </script>
