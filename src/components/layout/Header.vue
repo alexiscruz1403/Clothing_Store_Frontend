@@ -4,16 +4,16 @@
             <Menu class="h-9 md:h-6 w-9 md:w-6" @click="handleNavOptionMenuClick"/>
             <div v-if="navOptionMenu" class="absolute left-5 top-14 md:top-10 bg-white shadow-lg rounded-md px-4 py-3 w-52 flex flex-col gap-1">
                 <nav class="flex flex-col divide-y divide-[#E6E6E6]">
-                    <button v-for="genre in genres" class="bg-white text-center cursor-pointer py-2" @click="handleNavClick(genre.genre_id)">{{ genre.genre_name }}</button>
+                    <button v-for="genre in genres" class="bg-white text-center cursor-pointer py-2" @click="handleNavClick(genre)">{{ genre }}</button>
                 </nav>
             </div>
         </div>
         <button class="cursor-pointer order-2 md:order-1" @click="handleLogoClick">Logo</button>
         <nav class="hidden md:flex md:items-center md:order-2">
-            <button v-for="genre in genres" class="hover:bg-[#D4C4A8] p-3 text-lg rounded transition-colors duration-300 cursor-pointer" @click="handleNavClick(genre.genre_id)">{{ genre.genre_name }}</button>
+            <button v-for="genre in genres" class="hover:bg-[#D4C4A8] p-3 text-lg rounded transition-colors duration-300 cursor-pointer" @click="handleNavClick(genre.genre_name)">{{ genre.genre_name }}</button>
         </nav>
 
-        <div v-if="isAuthenticated" class="order-3 flex items-center gap-2">
+        <div v-if="user" class="order-3 flex items-center gap-2">
             <button class="bg-white p-2 rounded-md hover:bg-black hover:text-white cursor-pointer hidden md:block transition-colors duration-300" @click="handleCartClick">
                 <ShoppingCart />
             </button>
@@ -29,7 +29,7 @@
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1">Mis compras</p>
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer md:hidden p-1">Mi carrito</p>
                     </div>
-                    <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1 transition-colors duration-300">Cerrar sesión</p>
+                    <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1 transition-colors duration-300" @click="handleLogoutClick">Cerrar sesión</p>
                 </div>
             </div>  
         </div>
@@ -38,14 +38,14 @@
                 <CircleUser class="h-9 w-9 md:h-6 md:w-6 md:hidden" @click="handleAuthOptionsMenuClick"/>
                 <div v-if="authOptionsMenu" class="absolute right-5 top-14 md:top-10 bg-white shadow-lg rounded-md px-4 py-3 w-52 flex flex-col gap-1">
                     <div>
-                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1">Iniciar sesión</p>
-                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1">Registrarse</p>
+                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1" @click="handleLoginClick">Iniciar sesión</p>
+                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1" @click="handleRegisterClick">Registrarse</p>
                     </div>
                 </div>
             </div>
             <div class="hidden md:flex gap-2">
-                <Button type="gray" label="Iniciar Sesión" />
-                <Button type="brown" label="Registrarse" />
+                <Button type="gray" label="Iniciar Sesión" :onClick="handleLoginClick"/>
+                <Button type="brown" label="Registrarse" :onClick="handleRegisterClick"/>
             </div>
         </div>
     </header>
@@ -56,20 +56,16 @@ import { ref } from 'vue';
 
 import Button from '@/components/ui/Buttons/Button.vue';
 import { Menu, User, CircleUser, ShoppingCart } from 'lucide-vue-next';
-import { useGenreStore } from '@/stores/useGenresStore';
-import { useFiltersStore } from '@/stores/useFiltersStore';
 import { useAuthStore } from '@/stores/useAuthStore';
-import { onMounted } from 'vue';
+import { useGenreStore } from '@/stores/useGenresStore';
 import { storeToRefs } from 'pinia';
-import router from '@/router';
+import router from '@/router'; 
 
-const filtersStore = useFiltersStore();
-const genreStore = useGenreStore();
 const authStore = useAuthStore();
+const { user } = storeToRefs(authStore);
 
+const genreStore = useGenreStore();
 const { genres } = storeToRefs(genreStore);
-
-const { isAuthenticated } = storeToRefs(authStore);
 
 const userOptionsMenu = ref(false);
 const authOptionsMenu = ref(false);
@@ -88,13 +84,11 @@ const handleNavOptionMenuClick = () => {
 };
 
 const handleNavClick = (genre) => {
-    filtersStore.setGenre(genre);
-    navOptionMenu.value = false;
+    handleNavOptionMenuClick();
     router.push({ name: 'products' });
 } 
 
 const handleLogoClick = () => {
-    filtersStore.resetFilters();
     router.push({ name: 'home' });
 };
 
@@ -106,8 +100,17 @@ const handleFavoritesClick = () => {
     router.push({ name: 'favorites' });
 };
 
-onMounted(() => {
-    genreStore.fetchGenres();
-})
+const handleRegisterClick = () => {
+    router.push({ name: 'register' });
+};
+
+const handleLoginClick = () => {
+    router.push({ name: 'login' });
+};
+
+const handleLogoutClick = () => {
+    handleUserOptionsMenuClick();
+    router.push({ name: 'logout' });
+}
 
 </script>

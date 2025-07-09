@@ -18,6 +18,7 @@
                 </div> 
             </form>
         </main>
+        <Modal :title="modal.title" :description="modal.description" :type="modal.type" :visibility="modal.visibility"/>
         <Footer />
     </div>
 </template>
@@ -27,10 +28,13 @@ import Header from '@/components/layout/Header.vue';
 import Footer from '@/components/layout/Footer.vue';
 import Input from '@/components/ui/Inputs/Input.vue';
 import Button from '@/components/ui/Buttons/Button.vue';
-import { reactive, computed } from 'vue';
+import Modal from '@/components/ui/Modals/Modal.vue';
+import { ref, reactive, computed } from 'vue';
 import { useAuthStore } from '@/stores/useAuthStore';
 import useVuelidate from '@vuelidate/core'
 import { required, email, minLength, maxLength, alpha, numeric } from '@vuelidate/validators'
+import { errorObjectToString } from '@/utils/errorObjectToString';
+import router from '@/router';
 
 const authStore = useAuthStore();
 
@@ -87,9 +91,34 @@ const phoneError = computed(() => {
     return ''
 })
 
-const handleSubmit = () => {
+const registerSuccess = ref(false);
+
+const modal = reactive({
+    title: 'Registrando usuario',
+    description: 'Por favor, espera mientras registramos tu cuenta.',
+    type: 'waiting',
+    visibility: false
+});
+
+const handleSubmit = async () => {
     v$.value.$touch();
     if (v$.value.$invalid) return;
-    authStore.setUser({username: 'alexis'});
+    try{
+        modal.visibility = true;
+        await authStore.registerUser(form);
+        modal.title = 'Registro exitoso';
+        modal.description = 'Tu cuenta ha sido creada correctamente.';
+        modal.type = 'success';
+        registerSuccess.value = true;
+    }catch(error){
+        modal.title = error.response.data.message;
+        modal.description = errorObjectToString(error.response.data.errors);
+        modal.type = 'error';
+    }finally{
+        setTimeout(() => {
+            modal.visibility = false;
+            if(registerSuccess.value) router.push({ name: 'home' });
+        }, 2000);
+    }
 };
 </script>
