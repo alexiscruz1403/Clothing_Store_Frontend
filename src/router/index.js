@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { validate } from '@/api/auth';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,6 +13,14 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('@/views/auth/LoginView.vue'),
+      beforeEnter: async (to, from, next) => {
+        try {
+          await validate();
+          next({ name: 'home' });
+        } catch (error) {
+          next();
+        }
+      }
     },
     {
       path: '/register',

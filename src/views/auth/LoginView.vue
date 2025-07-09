@@ -15,6 +15,7 @@
                 </div> 
             </form>
         </main>
+        <Modal :title="modal.title" :description="modal.description" :type="modal.type" :visibility="modal.visibility"/> 
         <Footer />
     </div>
 </template>
@@ -24,10 +25,13 @@ import Header from '@/components/layout/Header.vue';
 import Footer from '@/components/layout/Footer.vue';
 import Input from '@/components/ui/Inputs/Input.vue';
 import Button from '@/components/ui/Buttons/Button.vue';
-import { reactive, computed } from 'vue';
-import { useAuthStore } from '@/stores/useAuthStore';
+import Modal from '@/components/ui/Modals/Modal.vue';
+import { ref, reactive, computed } from 'vue';
 import useVuelidate from '@vuelidate/core'
-import { required, email, minLength, maxLength, alpha, numeric } from '@vuelidate/validators'
+import { required, email, minLength, maxLength } from '@vuelidate/validators'
+import { useAuthStore } from '@/stores/useAuthStore';
+import { errorObjectToString } from '@/utils/errorObjectToString';
+import router from '@/router';
 
 const authStore = useAuthStore();
 
@@ -57,10 +61,36 @@ const passwordError = computed(() => {
     return ''
 })
 
-const handleSubmit = () => {
+const loginSuccess = ref(false);
+
+const modal = reactive({
+    title: 'Iniciando sesión',
+    description: 'Por favor, espere mientras iniciamos sesión...',
+    type: 'waiting',
+    visibility: false
+});
+
+const handleSubmit = async () => {
     v$.value.$touch();
     if (v$.value.$invalid) return;
-    authStore.setUser({username: 'alexis'});
+
+    modal.visibility = true;
+    try{
+        await authStore.loginUser(form);
+        modal.title = 'Bienvenido nuevamente';
+        modal.description = 'Has iniciado sesión correctamente.';
+        modal.type = 'success';
+        loginSuccess.value = true;
+    }catch(error){
+        modal.title = error.response.data.message;
+        modal.description = errorObjectToString(error.response.data.errors);
+        modal.type = 'error';
+    }finally{
+        setTimeout(() => {
+            modal.visibility = false;
+            if(loginSuccess.value) router.push({ name: 'home' });
+        }, 2000);
+    }
 };
 
 </script>
