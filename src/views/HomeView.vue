@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-[#E8DCCB]">
+    <div class="w-[95%] md:w-full">
         <div class="h-72 lg:h-80 w-full flex justify-center md:text-[#2E2E2E]">
             <div class="h-full w-full md:w-[45%] flex flex-col gap-5 justify-center items-center">
                 <div class="text-3xl">Logo</div>
@@ -11,7 +11,7 @@
         <div class="flex flex-col md:flex-row gap-2 md:gap-5 px-2 md:px-10">
             <GenreCard v-for="genre in filteredGenres" :genreId="genre.genre_id" :genreName="genre.genre_name" :genreImage="genre.genre_image" :key="genre.genre_name" />
         </div>
-        <div class="px-2 py-5 md:px-10">
+        <div class="px-2 pt-5 md:px-10">
             <div class="w-full flex gap-2 md:gap-5 overflow-auto">
                 <CategoryCard v-for="category in categories" :categoryId="category.category_id" :categoryName="category.category_name" :categoryImage="category.category_image"/>
             </div>

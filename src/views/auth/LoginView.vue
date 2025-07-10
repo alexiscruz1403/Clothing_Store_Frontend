@@ -1,28 +1,22 @@
 <template>
-    <div class="flex flex-col justify-between min-h-screen bg-[#E8DCCB]">
-        <Header />
-        <main class="px-5 md:px-0 flex items-center justify-center text-[#2E2E2E] font-['Nunito']">
-            <form class="bg-white w-md p-4 rounded-lg shadow-lg flex flex-col gap-4" @submit.prevent="handleSubmit">
-                <h1 class="text-2xl text-center">Iniciar sesión</h1>
-                <div class="flex flex-col gap-3">
-                    <Input v-model="form.email" type="text" label="Correo Electrónico" placeholder="Ingrese su nombre" :required="true" :error="emailError"/>
-                    <Input v-model="form.password" type="password" label="Contraseña" placeholder="Ingrese su nombre" :required="true" :error="passwordError"/>
-                    <Button type="primary" label="Enviar" />
-                </div>
-                <div class="text-sm">
-                    <p class="text-center">¿Aún no tienes una cuenta? Ve a <a href="/register" class="text-blue-600">registrarse</a></p>
-                    <p class="text-center">¿Olvidaste tu contraseña? Ve a <a href="/recover" class="text-blue-600">cambiar contraseña</a></p>
-                </div> 
-            </form>
-        </main>
-        <Modal :title="modal.title" :description="modal.description" :type="modal.type" :visibility="modal.visibility"/> 
-        <Footer />
+    <div class="flex items-center justify-center w-[90%] md:w-full">
+        <form class="bg-white w-md p-4 rounded-lg shadow-lg flex flex-col gap-4" @submit.prevent="handleSubmit">
+            <h1 class="text-2xl text-center">Iniciar sesión</h1>
+            <div class="flex flex-col gap-3">
+                <Input v-model="form.email" type="text" label="Correo Electrónico" placeholder="Ingrese su nombre" :required="true" :error="emailError"/>
+                <Input v-model="form.password" type="password" label="Contraseña" placeholder="Ingrese su nombre" :required="true" :error="passwordError"/>
+                <Button type="primary" label="Enviar" />
+            </div>
+            <div class="text-sm">
+                <p class="text-center">¿Aún no tienes una cuenta? Ve a <a href="/register" class="text-blue-600">registrarse</a></p>
+                <p class="text-center">¿Olvidaste tu contraseña? Ve a <a href="/recover" class="text-blue-600">cambiar contraseña</a></p>
+            </div> 
+        </form>
     </div>
+    <Modal :title="modal.title" :description="modal.description" :type="modal.type" :visibility="modal.visibility"/> 
 </template>
 <script setup>
 
-import Header from '@/components/layout/Header.vue';
-import Footer from '@/components/layout/Footer.vue';
 import Input from '@/components/ui/Inputs/Input.vue';
 import Button from '@/components/ui/Buttons/Button.vue';
 import Modal from '@/components/ui/Modals/Modal.vue';

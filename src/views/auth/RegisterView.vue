@@ -1,31 +1,25 @@
 <template>
-    <div class="flex flex-col justify-between min-h-screen bg-[#E8DCCB]">
-        <Header />
-        <main class="px-5 md-px-0 py-5 flex items-center justify-center text-[#2E2E2E] font-['Nunito']">
-            <form class="bg-white w-md p-4 rounded-lg shadow-lg flex flex-col gap-4" @submit.prevent="handleSubmit">
-                <h1 class="text-2xl text-center">Registrarse</h1>
-                <div class="flex flex-col gap-3">
-                    <Input v-model="form.username" type="text" label="Nombre" placeholder="Ingrese su nombre" :required="true" :error="usernameError"/>
-                    <Input v-model="form.email" type="text" label="Correo Electrónico" placeholder="Ingrese su nombre" :required="true" :error="emailError"/>
-                    <Input v-model="form.password" type="password" label="Contraseña" placeholder="Ingrese su nombre" :required="true" :error="passwordError"/>
-                    <Input v-model="form.address" type="text" label="Dirección" placeholder="Ingrese su nombre" :error="addressError"/>
-                    <Input v-model="form.phone" type="text" label="Número de telefóno" placeholder="Ingrese su nombre" :error="phoneError"/>
-                    <Button type="primary" label="Registrarse" />
-                </div>
-                <div class="text-sm">
-                    <p class="text-center">¿Ya tienes una cuenta? Ve a <a href="/login" class="text-blue-600">iniciar sesión</a></p>
-                    <p class="text-center">Al registrarte aceptas nuestros <a href="/terms" class="text-blue-600">términos y condiciones</a></p>
-                </div> 
-            </form>
-        </main>
-        <Modal :title="modal.title" :description="modal.description" :type="modal.type" :visibility="modal.visibility"/>
-        <Footer />
+    <div class="flex items-center justify-center w-[90%] md:w-full">
+        <form class="bg-white w-md p-4 rounded-lg shadow-lg flex flex-col gap-4" @submit.prevent="handleSubmit">
+            <h1 class="text-2xl text-center">Registrarse</h1>
+            <div class="flex flex-col gap-3">
+                <Input v-model="form.username" type="text" label="Nombre" placeholder="Ingrese su nombre" :required="true" :error="usernameError"/>
+                <Input v-model="form.email" type="text" label="Correo Electrónico" placeholder="Ingrese su nombre" :required="true" :error="emailError"/>
+                <Input v-model="form.password" type="password" label="Contraseña" placeholder="Ingrese su nombre" :required="true" :error="passwordError"/>
+                <Input v-model="form.address" type="text" label="Dirección" placeholder="Ingrese su nombre" :error="addressError"/>
+                <Input v-model="form.phone" type="text" label="Número de telefóno" placeholder="Ingrese su nombre" :error="phoneError"/>
+                <Button type="primary" label="Registrarse" />
+            </div>
+            <div class="text-sm">
+                <p class="text-center">¿Ya tienes una cuenta? Ve a <a href="/login" class="text-blue-600">iniciar sesión</a></p>
+                <p class="text-center">Al registrarte aceptas nuestros <a href="/terms" class="text-blue-600">términos y condiciones</a></p>
+            </div> 
+        </form>
     </div>
+    <Modal :title="modal.title" :description="modal.description" :type="modal.type" :visibility="modal.visibility"/>
 </template>
 <script setup>
 
-import Header from '@/components/layout/Header.vue';
-import Footer from '@/components/layout/Footer.vue';
 import Input from '@/components/ui/Inputs/Input.vue';
 import Button from '@/components/ui/Buttons/Button.vue';
 import Modal from '@/components/ui/Modals/Modal.vue';

@@ -1,6 +1,5 @@
 <template>
-    <Header />
-    <main class="min-h-screen py-5 bg-[#E8DCCB] text-[#2E2E2E] font-['Nunito'] w-full flex flex-col items-center gap-5">
+    <div class="w-full h-full flex flex-col items-center justify-center gap-5">
         <h1 class="text-center text-3xl font-bold">Mis Favoritos</h1>
         <div class="w-[90%]">
             <SearchBar />
@@ -15,8 +14,7 @@
                 </template>
             </Suspense>
         </div>
-    </main>
-    <Footer />
+    </div>
 </template>
 <script setup>
 

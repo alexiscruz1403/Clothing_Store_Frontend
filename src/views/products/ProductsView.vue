@@ -1,7 +1,6 @@
 <template>
-    <Header />
-    <main class="min-h-screen w-full py-5 bg-[#E8DCCB] text-[#2E2E2E] font-['Nunito'] flex flex-col items-center gap-5">
-        <h1 class="text-center text-3xl font-bold">Productos</h1>
+    <div class="w-full h-full flex flex-col items-center justify-center gap-5">
+        <h1 class="text-center text-3xl font-bold">Nuestra colección</h1>
         <div class="w-[90%]">
             <SearchBar />
         </div>
@@ -15,13 +14,10 @@
                 </template>
             </Suspense>
         </div>
-    </main>
-    <Footer />
+    </div>
 </template>
 <script setup>
 
-import Header from '@/components/layout/Header.vue';
-import Footer from '@/components/layout/Footer.vue';
 import SearchBar from '@/components/ui/Inputs/SearchBar.vue';
 import Filter from '@/components/ui/Sidebars/Filter.vue';
 import Loader from '@/components/ui/Loader/Loader.vue';
