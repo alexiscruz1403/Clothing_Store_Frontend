@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white w-full lg:w-64 rounded-lg shadow-md p-4 flex flex-col gap-2 text-[#2E2E2E] font-['Nunito'] max-h-max sticky top-5">
+    <div class="bg-white w-full lg:w-64 rounded-lg shadow-md p-4 flex flex-col gap-2 text-[#2E2E2E] font-['Nunito'] max-h-max lg:sticky lg:top-5">
         <p class="text-center text-xl">Filtros</p>
         <div class="flex flex-row md:flex-col justify-between md:justify-start px-12 md:pl-2 lg:flex-col md:gap-3 lg:gap-3">
             <div class="flex flex-col md:flex-row lg:flex-col gap-2 md:gap-5 lg:gap-2">
@@ -25,7 +25,6 @@ import { useGenreStore } from '@/stores/useGenresStore';
 import { useCategoriesStore } from '@/stores/useCategoriesStore';
 import { useFiltersStore } from '@/stores/useFiltersStore';
 import { storeToRefs } from 'pinia';
-import { onMounted } from 'vue';
 
 const genreStore = useGenreStore();
 const categoriesStore = useCategoriesStore();
@@ -43,10 +42,5 @@ const handleFilterGenreClick = (genreId) => {
 const handleFilterCategoryClick = (categoryId) => {
     filtersStore.setCategory(categoryId);
 };
-
-onMounted(() => {
-    genreStore.fetchGenres();
-    categoriesStore.fetchCategories();
-});
 
 </script>
