@@ -1,17 +1,18 @@
 <template>
-    <div class="bg-white p-4 rounded-md relative">
-        <div class="flex justify-center items-center cursor-pointer" @click="handleCardClick">
-            <img :src="props.product_image" :alt="props.product_description" class="size-40">
+    <div :class="cardClass">
+        <div class="flex justify-center items-center" @click="handleCartRedirection">
+            <div :class="imgClass" v-if="props.loading"></div>
+            <img :src="mainImageSrc" :alt="props.product_description" :class="imgClass" v-else>
         </div>
         <div class="flex flex-col gap-2">
             <div class="flex flex-col">
-                <p class="">{{ props.product_name }}</p>
-                <p class="text-[#4F4F4F] text-sm">{{ props.product_brand }}</p>
+                <p :class="productNameClass">{{ props.product_name }}</p>
+                <p :class="productBrandClass">{{ props.product_brand }}</p>
             </div>
-            <p>${{ props.product_price }}</p>
-            <Button type="primary" label="Agregar al carrito" :onClick="handleCartClick"/>
+            <p :class="productPriceClass">${{ props.product_price }}</p>
+            <Button :type="buttonType" label="Agregar al carrito" @click="handleCartRedirection" size="large"/>
         </div>
-        <div class="absolute top-2 right-2 cursor-pointer z-10">
+        <div :class="heartClass">
             <Heart :fill="heartFill" @click="handleFavoriteClick"/>
         </div>
     </div>
@@ -21,7 +22,9 @@
 import { Heart } from 'lucide-vue-next';
 import Button from '../Buttons/Button.vue';
 import { computed } from 'vue';
+import { bgLoadingCLass, textLoadingClass } from '@/consts/loadingClasses';
 import { useFavoritesStore } from '@/stores/useFavoritesStore';
+import { getImgSrc } from '@/utils/getImgSrc';
 import router from '@/router';
 
 const favoritesStore = useFavoritesStore();
@@ -29,68 +32,122 @@ const favoritesStore = useFavoritesStore();
 const props = defineProps({
     product_id: {
         type: Number,
-        required: true
+        required: true,
     },
-    product_image: {
-        type: String,
-        required: true
+    product_images: {
+        type: Array,
+        required: true,
     },
     product_name: {
         type: String,
-        required: true
+        required: true,
     },
     product_brand: {
         type: String,
-        required: true
+        required: true,
     },
     product_description: {
         type: String,
-        required: true
+        required: true,
     },
     product_price: {
         type: Number,
-        required: true
+        required: true,
     },
-    product_is_in_cart: {
+    is_in_cart: {
         type: Boolean,
-        required: true
+        required: true,
     },
-    product_is_in_favorites: {
+    is_in_cart: {
         type: Boolean,
-        required: true
+        required: true,
+    },
+    loading: {
+        type: Boolean,
+        default: false
     }
 });
 
 const heartFill = computed(() => {
-    return props.product_is_in_favorites ? "black" : "white"
+    return props.is_in_cart ? "black" : "white"
 });
 
 const product = computed(() => {
     return {
         product_id: props.product_id,
         product_name: props.product_name,
-        product_image: props.product_image,
+        product_images: props.images,
         product_brand: props.product_brand,
         product_price: props.product_price,
         product_description: props.product_description,
-        product_is_in_cart: props.product_is_in_cart,
-        product_is_in_favorites: props.product_is_in_favorites
+        is_in_cart: props.is_in_cart,
+        is_in_cart: props.is_in_cart
     }
 });
 
+const cardClass = computed(() => {
+    const baseClass = 'p-4 rounded-md relative flex flex-col gap-2';
+    if (props.loading) return `${bgLoadingCLass} ${baseClass}`;
+    return `bg-white ${baseClass}`;
+});
+
+const imgClass = computed(() => {
+    const baseClass = 'size-40';
+    if (props.loading) return `${baseClass} ${textLoadingClass}`;
+    return `${baseClass} cursor-pointer`;
+});
+
+const productNameClass = computed(() => {
+    if (props.loading) return `${textLoadingClass}`;
+    return '';
+});
+
+const productBrandClass = computed(() => {
+    if (props.loading) return `${textLoadingClass}`;
+    return 'text-[#4F4F4F] text-sm';
+});
+
+const productPriceClass = computed(() => {
+    if (props.loading) return `${textLoadingClass}`;
+    return '';
+});
+
+const heartClass = computed(() => {
+    if(props.loading) return 'hidden';
+    return 'absolute top-1 right-1 cursor-pointer z-10';
+});
+
+const buttonType = computed(() => {
+    if(props.loading) return 'loading';
+    return 'primary';
+})
+
+const mainImageSrc = computed(() => {
+    if(props.product_images && props.product_images.length > 0){
+        const mainImage = props.product_images.filter((img) => {
+            if(img.is_primary === 1) return img;
+        });
+
+        return mainImage.length > 0 ? getImgSrc(mainImage[0].image_url) : '';
+    }
+});
+
+console.log("Main Image Source:", mainImageSrc);
+
+const handleCartRedirection = computed(() => {
+    if (props.loading) return () => {};
+    return redirectToCart;
+});
+
 const handleFavoriteClick = () => {
-    if (props.product_is_in_favorites) {
+    if (props.is_in_cart) {
         favoritesStore.removeFromFavorites(product.value);
     } else {
         favoritesStore.addToFavorites(product.value);
     }
 }
 
-const handleCardClick = () => {
-    router.push({ name: 'productDetail', params: { id: props.product_id } });
-}
-
-const handleCartClick = () => {
+const redirectToCart = () => {
     router.push({ name: 'productDetail', params: { id: props.product_id } });
 }
 

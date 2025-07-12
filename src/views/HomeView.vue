@@ -5,7 +5,7 @@
                 <div class="text-3xl">Logo</div>
                 <h1 class="font-['Outfit'] text-3xl md:text-4xl">Casual es tu actitud</h1>
                 <p class="font-['Sora'] text-md md:text-lg w-[90%] md:w-full">Ropa urbana que expresa tu identidad. Para la calle, para vos, para todos los días</p>
-                    <Button label="Explorar"/>
+                    <Button label="Explorar" @click="handleExploreClick"/>
             </div>
         </div>
         <div class="flex flex-col md:flex-row gap-2 md:gap-5 px-2 md:px-10">
@@ -26,21 +26,19 @@ import GenreCard from '@/components/ui/Cards/GenreCard.vue';
 import CategoryCard from '@/components/ui/Cards/CategoryCard.vue';
 import { useGenreStore } from '@/stores/useGenresStore';
 import { useCategoriesStore } from '@/stores/useCategoriesStore';
-import { useFiltersStore } from '@/stores/useFiltersStore';
-import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
+import router from '@/router';
 
 const genreStore = useGenreStore();
 const categoryStore = useCategoriesStore();
-const filtersStore = useFiltersStore();
 
 const { genres } = storeToRefs(genreStore);
 const { categories } = storeToRefs(categoryStore);
 
 const filteredGenres = genres.value.filter(genre => genre.display);
 
-onMounted(() => {
-  filtersStore.resetFilters();
-});
+const handleExploreClick = () => {
+    router.push({ name: 'products' });
+};
 
 </script>
