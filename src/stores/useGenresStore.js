@@ -5,7 +5,7 @@ export const useGenreStore = defineStore('genres', () => {
     const genres = ref([
         { genre_id: 1, genre_name: 'Hombres', genre_image: '/home/pexels-hombres.png', checked: false, display:true },
         { genre_id: 2, genre_name: 'Mujeres', genre_image: '/home/pexels-mujeres.png', checked: false, display:true },
-        { genre_id: 3, genre_name: 'Niños', checked: false, display: false },
+        { genre_id: 3, genre_name: 'Unisex', checked: false, display: false },
     ]);
 
     const checkGenre = (genreId) => {

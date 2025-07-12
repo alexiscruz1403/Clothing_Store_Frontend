@@ -44,8 +44,8 @@
                 </div>
             </div>
             <div class="hidden md:flex gap-2">
-                <Button type="gray" label="Iniciar Sesión" :onClick="handleLoginClick"/>
-                <Button type="brown" label="Registrarse" :onClick="handleRegisterClick"/>
+                <Button type="gray" label="Iniciar Sesión" @click="handleLoginClick"/>
+                <Button type="brown" label="Registrarse" @click="handleRegisterClick"/>
             </div>
         </div>
     </header>

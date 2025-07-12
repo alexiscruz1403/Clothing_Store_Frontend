@@ -1,82 +1,62 @@
-import { ref } from "vue";
-import { defineStore, storeToRefs } from "pinia";
-import { useFiltersStore } from "./useFiltersStore";
+import { reactive, ref, watch } from "vue";
+import { defineStore } from "pinia";
+import { getProducts } from "@/api/products";
+import { useFiltersStore } from "@/stores/useFiltersStore";
+import { storeToRefs } from "pinia";
 
 const filtersStore = useFiltersStore();
+const { genreFilter, categoryFilter, searchFilter } = storeToRefs(filtersStore);
 
 export const useProductsStore = defineStore("products", () => {
     const products = ref([]);
 
-    const fetchProducts = async () => {
-        const { category, genre, search } = filtersStore;
-        const newProducts = [
-            {
-                product_id: 1,
-                product_name: 'Camiseta Básica',
-                product_brand: 'Marca A',
-                product_description: 'Descripcion de la camiseta básica de Marca A.',
-                product_price: 19.99,
-                product_image: "/home/ideogram-remeras.png",
-                product_is_in_cart: false,
-                product_is_in_favorites: false,   
-            },
-            {
-                product_id: 2,
-                product_name: 'Pantalón Casual',
-                product_brand: 'Marca B',
-                product_description: 'Descripcion del pantalón casual de Marca B.',
-                product_price: 39.99,
-                product_image: "/home/leonardo-pantalones.png",
-                product_is_in_cart: false,
-                product_is_in_favorites: true,
-            },
-            {
-                product_id: 3,
-                product_name: 'Zapatillas Deportivas',
-                product_brand: 'Marca C',
-                product_description: 'Descripcion de las zapatillas deportivas de Marca C.',
-                product_price: 59.99,
-                product_image: "/home/leonardo-zapatillas.png",
-                product_is_in_cart: true,
-                product_is_in_favorites: false,
-            },
-            {
-                product_id: 4,
-                product_name: 'Camiseta Básica',
-                product_brand: 'Marca A',
-                product_description: 'Descripcion de la camiseta básica de Marca A.',
-                product_price: 19.99,
-                product_image: "/home/ideogram-remeras.png",
-                product_is_in_cart: false,
-                product_is_in_favorites: false,   
-            },
-            {
-                product_id: 5,
-                product_name: 'Pantalón Casual',
-                product_brand: 'Marca B',
-                product_description: 'Descripcion del pantalón casual de Marca B.',
-                product_price: 39.99,
-                product_image: "/home/leonardo-pantalones.png",
-                product_is_in_cart: false,
-                product_is_in_favorites: false,
-            },
-            {
-                product_id: 6,
-                product_name: 'Zapatillas Deportivas',
-                product_brand: 'Marca C',
-                product_description: 'Descripcion de las zapatillas deportivas de Marca C.',
-                product_price: 59.99,
-                product_image: "/home/leonardo-zapatillas.png",
-                product_is_in_cart: true,
-                product_is_in_favorites: true,
-            }
-        ];
+    const params = reactive({
+        page: 1,
+        product_genre: genreFilter,
+        product_categories: categoryFilter,
+        search: searchFilter
+    });
 
-        products.value = newProducts;
+    const matches = ref(0);
+
+    const availableProducts = ref(true);
+
+    const fetchProducts = async () => { 
+        try {
+            const response = await getProducts(params);
+
+            if(products.value.length == 0) {
+                products.value = response.data.products;
+            }else{
+                products.value.push(...response.data.products);
+            }
+
+            matches.value = response.data.meta.total;
+
+            if(response.data.links.next){
+                params.page++;
+                availableProducts.value = true;
+            }else{
+                availableProducts.value = false;
+            };
+        }catch(error){
+            throw error;
+        }
+    }
+
+    const clearProducts = () => {
+        products.value = [];
+        params.page = 1;
+        matches.value = 0;
+        availableProducts.value = false;
     }
 
     return{
         products,
-        fetchProducts
+        matches,
+        availableProducts,
+        params,
+        fetchProducts,
+        clearProducts
     }
 });
