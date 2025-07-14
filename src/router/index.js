@@ -46,6 +46,14 @@ const router = createRouter({
       path: '/favorites',
       name: 'favorites',
       component: () => import('@/views/products/FavoritesView.vue'),
+      beforeEnter: async (to, from, next) => {
+        try {
+          await validate();
+          next();
+        } catch (error) {
+          next({ name: 'login' });
+        }
+      }
     },
     {
       path: '/cart',

@@ -44,7 +44,7 @@ const handleFiltersChanged = () => {
     timeout.value = setTimeout(() => {
         productsStore.clearProducts();
         fetchProducts();
-    }, 1000);
+    }, 500);
 };
 
 onBeforeRouteLeave((to, from, next) => {
