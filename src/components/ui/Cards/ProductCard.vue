@@ -54,7 +54,7 @@ const props = defineProps({
         type: Number,
         required: true,
     },
-    is_in_cart: {
+    is_in_favorites: {
         type: Boolean,
         required: true,
     },
@@ -69,7 +69,7 @@ const props = defineProps({
 });
 
 const heartFill = computed(() => {
-    return props.is_in_cart ? "black" : "white"
+    return props.is_in_favorites ? "black" : "white"
 });
 
 const product = computed(() => {
@@ -80,7 +80,7 @@ const product = computed(() => {
         product_brand: props.product_brand,
         product_price: props.product_price,
         product_description: props.product_description,
-        is_in_cart: props.is_in_cart,
+        is_in_favorites: props.is_in_favorites,
         is_in_cart: props.is_in_cart
     }
 });
@@ -132,19 +132,15 @@ const mainImageSrc = computed(() => {
     }
 });
 
-console.log("Main Image Source:", mainImageSrc);
-
 const handleCartRedirection = computed(() => {
     if (props.loading) return () => {};
     return redirectToCart;
 });
 
-const handleFavoriteClick = () => {
-    if (props.is_in_cart) {
-        favoritesStore.removeFromFavorites(product.value);
-    } else {
-        favoritesStore.addToFavorites(product.value);
-    }
+const handleFavoriteClick = async () => {
+    if(props.loading) return;
+
+    await favoritesStore.toggleFavorite(product.value);
 }
 
 const redirectToCart = () => {
