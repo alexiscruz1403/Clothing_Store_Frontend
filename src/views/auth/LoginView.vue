@@ -20,7 +20,8 @@
 import Input from '@/components/ui/Inputs/Input.vue';
 import Button from '@/components/ui/Buttons/Button.vue';
 import Modal from '@/components/ui/Modals/Modal.vue';
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
 import useVuelidate from '@vuelidate/core'
 import { required, email, minLength, maxLength } from '@vuelidate/validators'
 import { useAuthStore } from '@/stores/useAuthStore';
@@ -28,6 +29,8 @@ import { errorObjectToString } from '@/utils/errorObjectToString';
 import router from '@/router';
 
 const authStore = useAuthStore();
+
+const { isAuthenticated } = storeToRefs(authStore);
 
 const form = reactive({
     email: '',
@@ -86,5 +89,9 @@ const handleSubmit = async () => {
         }, 2000);
     }
 };
+
+onMounted(() => {
+    if(isAuthenticated.value) router.push({ name: 'home' });
+});
 
 </script>

@@ -13,9 +13,12 @@
             <button v-for="genre in genres" class="hover:bg-[#D4C4A8] p-3 text-lg rounded transition-colors duration-300 cursor-pointer" @click="handleNavClick(genre.genre_name)">{{ genre.genre_name }}</button>
         </nav>
 
-        <div v-if="user" class="order-3 flex items-center gap-2">
-            <button class="bg-white p-2 rounded-md hover:bg-black hover:text-white cursor-pointer hidden md:block transition-colors duration-300" @click="handleCartClick">
+        <div v-if="isAuthenticated" class="order-3 flex items-center gap-2">
+            <button class="bg-white p-2 rounded-md hover:bg-black hover:text-white cursor-pointer hidden md:block transition-colors duration-300 relative" @click="handleCartClick">
                 <ShoppingCart />
+                <div class="absolute -top-1 -right-1 size-4 bg-black rounded-full flex items-center justify-center">
+                    <p class="text-white text-xs">{{ user.cart }}</p>
+                </div>
             </button>
             <div class="relative flex items-center justify-center">
                 <button class="md:bg-white md:p-2 md:rounded-md md:hover:bg-black md:hover:text-white md:cursor-pointer transition-colors duration-300" @click="handleUserOptionsMenuClick">
@@ -58,14 +61,20 @@ import Button from '@/components/ui/Buttons/Button.vue';
 import { Menu, User, CircleUser, ShoppingCart } from 'lucide-vue-next';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useGenreStore } from '@/stores/useGenresStore';
+import { useFiltersStore } from '@/stores/useFiltersStore';
 import { storeToRefs } from 'pinia';
-import router from '@/router'; 
+import router from '@/router';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 
 const authStore = useAuthStore();
-const { user } = storeToRefs(authStore);
+const { user, isAuthenticated } = storeToRefs(authStore);
 
 const genreStore = useGenreStore();
 const { genres } = storeToRefs(genreStore);
+
+const filtersStore = useFiltersStore();
 
 const userOptionsMenu = ref(false);
 const authOptionsMenu = ref(false);
@@ -85,6 +94,10 @@ const handleNavOptionMenuClick = () => {
 
 const handleNavClick = (genre) => {
     handleNavOptionMenuClick();
+
+    if(route.name == 'products') return;
+    
+    filtersStore.setGenre(genre);
     router.push({ name: 'products' });
 } 
 

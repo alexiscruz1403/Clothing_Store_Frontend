@@ -6,7 +6,7 @@
         </div>
         <div class="w-[90%] flex flex-col gap-5 lg:flex-row">
             <Filter @filters-changed="handleFiltersChanged"/>
-            <ProductList :products="favorites" :matches="matches" :loading="loading" :fetch-products="fetchFavorites" :available-products="availableFavorites"/>
+            <ProductList :products="favorites" :matches="matches" @fetch-products="fetchFavorites" :available-products="availableFavorites"/>
         </div>
     </div>
 </template>
@@ -15,7 +15,7 @@
 import SearchBar from '@/components/ui/Inputs/SearchBar.vue';
 import Filter from '@/components/ui/Sidebars/Filter.vue';
 import ProductList from '@/components/ui/Lists/ProductList.vue';
-import {  onMounted, ref } from 'vue';
+import {  ref, onMounted, provide } from 'vue';
 import { useFavoritesStore } from '@/stores/useFavoritesStore';
 import { storeToRefs } from 'pinia';
 import { onBeforeRouteLeave } from 'vue-router';
@@ -24,6 +24,7 @@ const favoritesStore = useFavoritesStore();
 const { favorites, matches, availableFavorites } = storeToRefs(favoritesStore);
 
 const loading = ref(true);
+provide('loading', loading);
 
 const timeout = ref(null);
 
