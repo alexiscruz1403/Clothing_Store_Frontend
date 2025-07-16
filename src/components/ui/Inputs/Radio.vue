@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center gap-2">
-        <input type="radio" name="genres" :id="props.id" class="cursor-pointer size-4 accent-[#2E2E2E] border-gray-300 rounded" @click="emit('click')"/>
+        <input type="radio" name="genres" :id="props.id" class="cursor-pointer size-4 accent-[#2E2E2E] border-gray-300 rounded" @click="emit('click')" :checked="props.checked"/>
         <label :for="props.id" class="cursor-pointer text-[#2E2E2E] font-['Nunito']">{{ props.label }}</label>
     </div>
 </template>
@@ -17,9 +17,9 @@ const props = defineProps({
         type: String,
         required: true
     },
-    name: {
-        type: String,
-        default: 'radio-group'
+    checked: {
+        type: Boolean,
+        default: false
     }
 })
 

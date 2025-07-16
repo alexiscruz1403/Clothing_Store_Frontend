@@ -1,7 +1,7 @@
 <template>
     <div :class="cardClass">
-        <div class="flex justify-center items-center" @click="handleCartRedirection">
-            <div :class="imgClass" v-if="props.loading"></div>
+        <div class="flex justify-center items-center" @click="redirectToDetail">
+            <div :class="imgClass" v-if="loading"></div>
             <img :src="mainImageSrc" :alt="props.product_description" :class="imgClass" v-else>
         </div>
         <div class="flex flex-col gap-2">
@@ -10,7 +10,8 @@
                 <p :class="productBrandClass">{{ props.product_brand }}</p>
             </div>
             <p :class="productPriceClass">${{ props.product_price }}</p>
-            <Button :type="buttonType" label="Agregar al carrito" @click="handleCartRedirection" size="large"/>
+            <Button v-if="!props.is_in_cart" :type="buttonType" label="Agregar al carrito" @click="handleCartButtonClick" size="large"/>
+            <Button v-else :type="buttonType" label="Ver en carrito" @click="handleCartButtonClick" size="large"/>
         </div>
         <div :class="heartClass">
             <Heart :fill="heartFill" @click="handleFavoriteClick"/>
@@ -21,13 +22,13 @@
 
 import { Heart } from 'lucide-vue-next';
 import Button from '../Buttons/Button.vue';
-import { computed } from 'vue';
-import { bgLoadingCLass, textLoadingClass } from '@/consts/loadingClasses';
+import { computed, inject } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useFavoritesStore } from '@/stores/useFavoritesStore';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { bgLoadingCLass, textLoadingClass } from '@/consts/loadingClasses';
 import { getImgSrc } from '@/utils/getImgSrc';
 import router from '@/router';
-
-const favoritesStore = useFavoritesStore();
 
 const props = defineProps({
     product_id: {
@@ -61,12 +62,15 @@ const props = defineProps({
     is_in_cart: {
         type: Boolean,
         required: true,
-    },
-    loading: {
-        type: Boolean,
-        default: false
     }
 });
+
+const favoritesStore = useFavoritesStore();
+
+const authStore = useAuthStore();
+const { isAuthenticated } = storeToRefs(authStore);
+
+const loading = inject('loading');
 
 const heartFill = computed(() => {
     return props.is_in_favorites ? "black" : "white"
@@ -87,38 +91,41 @@ const product = computed(() => {
 
 const cardClass = computed(() => {
     const baseClass = 'p-4 rounded-md relative flex flex-col gap-2';
-    if (props.loading) return `${bgLoadingCLass} ${baseClass}`;
+    if (loading.value) return `${bgLoadingCLass} ${baseClass}`;
     return `bg-white ${baseClass}`;
 });
 
 const imgClass = computed(() => {
     const baseClass = 'size-40';
-    if (props.loading) return `${baseClass} ${textLoadingClass}`;
+    if (loading.value) return `${baseClass} ${textLoadingClass}`;
     return `${baseClass} cursor-pointer`;
 });
 
 const productNameClass = computed(() => {
-    if (props.loading) return `${textLoadingClass}`;
+    if (loading.value) return `${textLoadingClass}`;
     return '';
 });
 
 const productBrandClass = computed(() => {
-    if (props.loading) return `${textLoadingClass}`;
+    if (loading.value) return `${textLoadingClass}`;
     return 'text-[#4F4F4F] text-sm';
 });
 
 const productPriceClass = computed(() => {
-    if (props.loading) return `${textLoadingClass}`;
+    if (loading.value) return `${textLoadingClass}`;
     return '';
 });
 
 const heartClass = computed(() => {
-    if(props.loading) return 'hidden';
+    if(loading.value) return 'hidden';
     return 'absolute top-1 right-1 cursor-pointer z-10';
 });
 
 const buttonType = computed(() => {
-    if(props.loading) return 'loading';
+    if(loading.value) return 'loading';
+    
+    if(props.is_in_cart) return 'secondary';
+
     return 'primary';
 })
 
@@ -132,18 +139,26 @@ const mainImageSrc = computed(() => {
     }
 });
 
-const handleCartRedirection = computed(() => {
-    if (props.loading) return () => {};
-    return redirectToCart;
+const handleCartButtonClick = computed(() => {
+    if (loading.value) return () => {};
+    
+    if(props.is_in_cart) return () => router.push({ name: 'cart' });
+
+    return redirectToDetail;
 });
 
 const handleFavoriteClick = async () => {
-    if(props.loading) return;
+    if(loading.value) return;
+
+    if(!isAuthenticated.value){
+        router.push({ name: 'login' });
+        return;
+    }
 
     await favoritesStore.toggleFavorite(product.value);
 }
 
-const redirectToCart = () => {
+const redirectToDetail = () => {
     router.push({ name: 'productDetail', params: { id: props.product_id } });
 }
 

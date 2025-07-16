@@ -1,21 +1,24 @@
 <template>
-    <div class="bg-white p-2 lg:p-4 rounded-md relative w-max">
+    <div :class="cardClass">
         <div class="flex justify-center items-center cursor-pointer" @click="handleCardClick">
-            <img :src="props.product_image" :alt="props.product_description" class="size-24 lg:size-40">
+            <div v-if="loading" :class="imgClass"></div>
+            <img v-else :src="props.product_image" :alt="props.product_description" :class="imgClass">
         </div>
         <div class="flex flex-col gap-2">
             <div class="flex flex-col">
-                <p class="">{{ props.product_name }}</p>
-                <p class="text-[#4F4F4F] text-sm">{{ props.product_brand }}</p>
+                <p :class="normalTextClass">{{ props.product_name }}</p>
+                <p :class="smallTextClass">{{ props.product_brand }}</p>
             </div>
-            <p>${{ props.product_price }}</p>
-            <Button type="primary" label="Agregar al carrito" :onClick="handleCartClick"/>
+            <p :class="normalTextClass">${{ props.product_price }}</p>
+            <Button :type="buttonType" label="Agregar al carrito" :onClick="handleCartClick"/>
         </div>
     </div>
 </template>
 <script setup>
 
 import Button from '../Buttons/Button.vue';
+import { computed, inject } from 'vue';
+import { bgLoadingCLass, textLoadingClass } from '@/consts/loadingClasses';
 import router from '@/router';
 
 const props = defineProps({
@@ -31,10 +34,39 @@ const props = defineProps({
         type: String,
         required: true
     },
+    product_brand: {
+        type: String,
+        required: true
+    },
     product_price: {
         type: Number,
         required: true
     },
+});
+
+const loading = inject('loading');
+
+const cardClass = computed(() => {
+    const baseClass = "p-2 lg:p-4 rounded-md relative w-max";
+    return loading.value ? `${baseClass} ${bgLoadingCLass}` : `${baseClass} bg-white`;
+});
+
+const imgClass = computed(() => {
+    const baseClass = "size-24 lg:size-40";
+    return loading.value ? `${baseClass} ${textLoadingClass}` : baseClass;
+});
+
+const normalTextClass = computed(() => {
+    return loading.value ? `${textLoadingClass}` : '';
+});
+
+const smallTextClass = computed(() => {
+    const baseClass = "text-sm text-[#4F4F4F]";
+    return loading.value ? `${baseClass} ${textLoadingClass}` : baseClass;
+});
+
+const buttonType = computed(() => {
+    return loading.value ? 'loading' : 'primary';
 });
 
 const handleCardClick = () => {

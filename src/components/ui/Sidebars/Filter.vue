@@ -5,7 +5,7 @@
             <div class="flex flex-col md:flex-row lg:flex-col gap-2 md:gap-5 lg:gap-2">
                 <p class="text-lg">Generos</p>
                 <div class="flex flex-col md:flex-row lg:flex-col gap-1 md:gap-3 lg:gap-1">
-                    <Radio v-for="genre in genres" name="genres" :id="genre.genre_name" :key="genre.name" :label="genre.genre_name" @click="handleFilterGenreClick(genre.genre_name)"/>
+                    <Radio v-for="genre in genres" name="genres" :id="genre.genre_name" :key="genre.name" :label="genre.genre_name" @click="handleFilterGenreClick(genre.genre_name)" :checked="genre.genre_name == genreFilter"/>
                 </div>
             </div>
             <div class="flex flex-col md:flex-row lg:flex-col gap-2 md:gap-5 lg:gap-2">
@@ -28,12 +28,13 @@ import { storeToRefs } from 'pinia';
 import { defineEmits } from 'vue';
 
 const genreStore = useGenreStore();
-const categoriesStore = useCategoriesStore();
-
 const { genres } = storeToRefs(genreStore);
+
+const categoriesStore = useCategoriesStore();
 const { categories } = storeToRefs(categoriesStore);
 
 const filtersStore = useFiltersStore();
+const { genreFilter } = storeToRefs(filtersStore);
 
 const emit = defineEmits(['filters-changed']);
 

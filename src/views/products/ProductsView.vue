@@ -6,7 +6,7 @@
         </div>
         <div class="w-[90%] flex flex-col gap-5 lg:flex-row lg:justify-between">
             <Filter @filters-changed="handleFiltersChanged"/>
-            <ProductList :products="products" :matches="matches" :loading="loading" :fetch-products="fetchProducts" :available-products="availableProducts"/>
+            <ProductList :products="products" :matches="matches" @fetch-products="fetchProducts" :available-products="availableProducts"/>
         </div>
     </div>
 </template>
@@ -15,7 +15,7 @@
 import SearchBar from '@/components/ui/Inputs/SearchBar.vue';
 import Filter from '@/components/ui/Sidebars/Filter.vue';
 import ProductList from '@/components/ui/Lists/ProductList.vue';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, provide } from 'vue';
 import { useProductsStore } from '@/stores/useProductsStore';
 import { storeToRefs } from 'pinia';
 import { onBeforeRouteLeave } from 'vue-router';
@@ -24,6 +24,7 @@ const productsStore = useProductsStore();
 const { products, matches, availableProducts } = storeToRefs(productsStore);
 
 const loading = ref(true);
+provide('loading', loading);
 
 const timeout = ref(null);
 

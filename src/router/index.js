@@ -12,15 +12,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/auth/LoginView.vue'),
-      beforeEnter: async (to, from, next) => {
-        try {
-          await validate();
-          next({ name: 'home' });
-        } catch (error) {
-          next();
-        }
-      }
+      component: () => import('@/views/auth/LoginView.vue')
     },
     {
       path: '/register',
@@ -45,15 +37,7 @@ const router = createRouter({
     {
       path: '/favorites',
       name: 'favorites',
-      component: () => import('@/views/products/FavoritesView.vue'),
-      beforeEnter: async (to, from, next) => {
-        try {
-          await validate();
-          next();
-        } catch (error) {
-          next({ name: 'login' });
-        }
-      }
+      component: () => import('@/views/products/FavoritesView.vue')
     },
     {
       path: '/cart',

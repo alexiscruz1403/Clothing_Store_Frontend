@@ -15,8 +15,7 @@
                     :product_description="product.product_description"
                     :product_price="product.product_price"
                     :is_in_cart="product.is_in_cart"
-                    :is_in_favorites="product.is_in_favorites"
-                    :loading="product.loading" 
+                    :is_in_favorites="product.is_in_favorites" 
                 />
             </div>
             <div class="flex justify-center items-center">
@@ -24,12 +23,12 @@
                     v-if="props.availableProducts" 
                     :type="buttonType" 
                     label="Cargar más"
-                    :onClick="props.fetchProducts" 
+                    @click="handleFetchProducts" 
                 />  
             </div>          
         </div>
         <div v-if="showEmptyMessage" class="w-full h-20 lg:h-full flex justify-center items-center">
-            <p class="text-lg text-center bg-gray-400 text-transparent" v-if="props.loading">{{ props.emptyMessage }}</p>
+            <p class="text-lg text-center bg-gray-400 text-transparent" v-if="loading">{{ props.emptyMessage }}</p>
             <p class="text-lg text-center" v-else>{{ props.emptyMessage }}</p>
         </div>
     </div>
@@ -38,7 +37,7 @@
 
 import ProductCard from '../Cards/ProductCard.vue';
 import Button from '../Buttons/Button.vue';
-import { computed } from 'vue';
+import { computed, defineEmits, inject } from 'vue';
 import { bgLoadingCLass } from '@/consts/loadingClasses';
 
 const props = defineProps({
@@ -50,17 +49,9 @@ const props = defineProps({
         type: String,
         default: 'No hay productos disponibles'
     },
-    loading: {
-        type: Boolean,
-        default: false
-    },
     matches: {
         type: Number,
         default: 0
-    },
-    fetchProducts: {
-        type: Function,
-        default: () => {}
     },
     availableProducts: {
         type: Boolean,
@@ -68,19 +59,23 @@ const props = defineProps({
     }
 })
 
+const loading = inject('loading');
+
+const emit = defineEmits(['fetch-products']);
+
 const subtitleClass = computed(() => {
     const baseClass = 'text-xl';
-    if(props.loading && props.products.length == 0) return `${baseClass} ${bgLoadingCLass}`;
+    if(loading.value && props.products.length == 0) return `${baseClass} ${bgLoadingCLass}`;
     return baseClass;
 });
 
 const foundProductsClass = computed(() => {
-    if (props.loading && props.products.length == 0) return `${bgLoadingCLass}`;
+    if (loading.value && props.products.length == 0) return `${bgLoadingCLass}`;
     return 'text-[#4F4F4F]';
 });
 
 const showEmptyMessage = computed(() => {
-    return props.products.length === 0 && !props.loading;
+    return props.products.length === 0 && !loading.value;
 });
 
 const matchesText = computed(() => {
@@ -88,11 +83,11 @@ const matchesText = computed(() => {
 })
 
 const buttonType = computed(() => {
-    return props.loading ? 'loading' : 'secondary';
+    return loading.value ? 'loading' : 'secondary';
 });
 
 const products = computed(() => {
-    if(props.loading) {
+    if(loading.value) {
         const loadingProducts = Array.from({ length: 10 }, (_, index) => ({
             product_id: 0,
             images: [],
@@ -101,18 +96,18 @@ const products = computed(() => {
             product_description: 'Cargando descripcion',
             product_price: 0.0,
             is_in_cart: false,
-            is_in_favorites: false,
-            loading: true
+            is_in_favorites: false
         }));
 
-        const currentProducts = props.products.map(product => ({
-            ...product,
-            loading: false
-        }));
+        const currentProducts = props.products;
 
         return [...currentProducts, ...loadingProducts];
     }
     return props.products;
 });
+
+const handleFetchProducts = () => {
+    emit('fetch-products');
+};
 
 </script>

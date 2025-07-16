@@ -1,9 +1,15 @@
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { defineStore } from 'pinia';
 import { validate, login, register, logout } from '../api/auth';
 
 export const useAuthStore = defineStore('auth', () => {
     const user = ref(null);
+
+    const isAuthenticated = ref(false);
+
+    watch(user, (newValue) => {
+        isAuthenticated.value = newValue !== null;
+    });
 
     const validateSession = async () => {
         try {
@@ -44,11 +50,17 @@ export const useAuthStore = defineStore('auth', () => {
         }
     }
 
+    const updateUser = (newUserData) => {
+        user.value = { ...user.value, ...newUserData };
+    }
+
     return{
         user,
+        isAuthenticated,
         validateSession,
         loginUser,
         registerUser,
-        logoutUser
+        logoutUser,
+        updateUser
     }
 });
