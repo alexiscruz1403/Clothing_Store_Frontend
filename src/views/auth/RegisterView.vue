@@ -8,7 +8,7 @@
                 <Input v-model="form.password" type="password" label="Contraseña" placeholder="Ingrese su nombre" :required="true" :error="passwordError"/>
                 <Input v-model="form.address" type="text" label="Dirección" placeholder="Ingrese su nombre" :error="addressError"/>
                 <Input v-model="form.phone" type="text" label="Número de telefóno" placeholder="Ingrese su nombre" :error="phoneError"/>
-                <Button type="primary" label="Registrarse" size="large" />
+                <Button type="primary" label="Registrarse" size="large" function="submit"/>
             </div>
             <div class="text-sm">
                 <p class="text-center">¿Ya tienes una cuenta? Ve a <a href="/login" class="text-blue-600">iniciar sesión</a></p>

@@ -5,7 +5,7 @@
             <div class="flex flex-col gap-3">
                 <Input v-model="form.email" type="text" label="Correo Electrónico" placeholder="Ingrese su nombre" :required="true" :error="emailError"/>
                 <Input v-model="form.password" type="password" label="Contraseña" placeholder="Ingrese su nombre" :required="true" :error="passwordError"/>
-                <Button type="primary" label="Enviar" size="large"/>
+                <Button type="primary" label="Enviar" size="large" function="submit"/>
             </div>
             <div class="text-sm">
                 <p class="text-center">¿Aún no tienes una cuenta? Ve a <a href="/register" class="text-blue-600">registrarse</a></p>

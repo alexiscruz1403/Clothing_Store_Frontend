@@ -24,13 +24,14 @@
                 <button class="md:bg-white md:p-2 md:rounded-md md:hover:bg-black md:hover:text-white md:cursor-pointer transition-colors duration-300" @click="handleUserOptionsMenuClick">
                     <User class="h-9 md:h-6 w-9 md:w-6"/>
                 </button>
-                <div v-if="userOptionsMenu" class="absolute right-0 top-9 md:top-10 bg-white shadow-lg rounded-md px-4 py-3 w-52 flex flex-col gap-1">
+                <div v-if="userOptionsMenu" class="absolute right-0 top-9 md:top-10 bg-white shadow-lg rounded-md px-4 py-3 w-52 flex flex-col gap-1 z-50">
                     <p class="text-center text-lg font-bold py-1">Nombre de usuario</p>
                     <div class="border border-b border-l-0 border-r-0 border-t py-1 flex flex-col">
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1">Mi perfil</p>
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer p-1" @click="handleFavoritesClick">Mis favoritos</p>
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1">Mis compras</p>
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer md:hidden p-1">Mi carrito</p>
+                        <p v-if="isAdmin" class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer p-1" @click="handleAdminClick">Administración</p>
                     </div>
                     <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1 transition-colors duration-300" @click="handleLogoutClick">Cerrar sesión</p>
                 </div>
@@ -55,10 +56,9 @@
 </template>
 <script setup>
 
-import { ref } from 'vue';
-
 import Button from '@/components/ui/Buttons/Button.vue';
 import { Menu, User, CircleUser, ShoppingCart } from 'lucide-vue-next';
+import { ref, computed, watch } from 'vue';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { useGenreStore } from '@/stores/useGenresStore';
 import { useFiltersStore } from '@/stores/useFiltersStore';
@@ -79,6 +79,16 @@ const filtersStore = useFiltersStore();
 const userOptionsMenu = ref(false);
 const authOptionsMenu = ref(false);
 const navOptionMenu = ref(false);
+const showAdminOption = ref(false);
+
+const isAdmin = computed(() => {
+    if(!user.value) return false;
+    return user.value.roles.find(role => role.role_id === 1 || role.role_id === 2) !== undefined;
+});
+
+watch(isAdmin, (newValue) => {
+    showAdminOption.value = newValue;
+});
 
 const handleUserOptionsMenuClick = () => {
     userOptionsMenu.value = !userOptionsMenu.value;
@@ -113,6 +123,16 @@ const handleFavoritesClick = () => {
     router.push({ name: 'favorites' });
 };
 
+const handleAdminClick = () => {
+    userOptionsMenu.value = false;
+    router.push({ name: 'admin' });
+};
+
+const handleLogoutClick = () => {
+    handleUserOptionsMenuClick();
+    router.push({ name: 'logout' });
+}
+
 const handleRegisterClick = () => {
     router.push({ name: 'register' });
 };
@@ -120,10 +140,5 @@ const handleRegisterClick = () => {
 const handleLoginClick = () => {
     router.push({ name: 'login' });
 };
-
-const handleLogoutClick = () => {
-    handleUserOptionsMenuClick();
-    router.push({ name: 'logout' });
-}
 
 </script>

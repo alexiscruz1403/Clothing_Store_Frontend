@@ -1,6 +1,5 @@
-const BASE_URL = 'http://127.0.0.1:8000/storage/products/';
+const BASE_URL = 'http://127.0.0.1:8000';
 
 export const getImgSrc = (imageUrl) => {
-    if (!imageUrl) return `${BASE_URL}default.png`; 
-    return `${BASE_URL}${imageUrl}`;
+    return imageUrl ? `${BASE_URL}${imageUrl}` : `${BASE_URL}/storage/default.png`;
 }

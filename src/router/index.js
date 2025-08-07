@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { validate } from '@/api/auth';
+import { validateAdmin } from '@/api/admin'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,6 +43,18 @@ const router = createRouter({
       path: '/cart',
       name: 'cart',
       component: () => import('@/views/products/CartView.vue'),
+    },{
+      path: '/admin',
+      name: 'admin',
+      component: () => import('@/views/admin/AdminView.vue'),
+      beforeEnter: async (to, from, next) => {
+        try{
+          await validateAdmin();
+          next();
+        }catch(error){
+          next({name: 'home'});
+        }
+      }
     }
   ],
 })

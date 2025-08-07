@@ -25,7 +25,7 @@ export const useFavoritesStore = defineStore('favorites', () => {
 
     const matches = ref(0);
 
-    const availableFavorites = ref(true);
+    const availableFavorites = ref(false);
 
     const fetchFavorites = async () => {
         try{ 
