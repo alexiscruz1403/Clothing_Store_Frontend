@@ -78,55 +78,35 @@ const computedRelatedProducts = computed(() => {
     if(loading.value) return [
         {
             product_id: 0,
-            product_image: {
-                image_id: 0,
-                image_url: '',
-                is_primary: 1
-            },
+            product_image: '',
             product_name: 'Cargando...',
             product_brand: 'Cargando...',
             product_price: 0,
         },
         {
             product_id: 0,
-            product_image: {
-                image_id: 0,
-                image_url: '',
-                is_primary: 1
-            },
+            product_image: '',
             product_name: 'Cargando...',
             product_brand: 'Cargando...',
             product_price: 0,
         },
         {
             product_id: 0,
-            product_image: {
-                image_id: 0,
-                image_url: '',
-                is_primary: 1
-            },
+            product_image: '',
             product_name: 'Cargando...',
             product_brand: 'Cargando...',
             product_price: 0,
         },
         {
             product_id: 0,
-            product_image: {
-                image_id: 0,
-                image_url: '',
-                is_primary: 1
-            },
+            product_image: '',
             product_name: 'Cargando...',
             product_brand: 'Cargando...',
             product_price: 0,
         },
         {
             product_id: 0,
-            product_image: {
-                image_id: 0,
-                image_url: '',
-                is_primary: 1
-            },
+            product_image: '',
             product_name: 'Cargando...',
             product_brand: 'Cargando...',
             product_price: 0,
