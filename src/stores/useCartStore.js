@@ -1,8 +1,9 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
-import { getCart, addProductToCart, updateProductQuantity, removeProductFromCart } from '@/api/cart';
+import { getCart, addProductToCart, updateProductQuantity, removeProductFromCart, clearCartProducts } from '@/api/cart';
 import { useAuthStore } from './useAuthStore';
 import { storeToRefs } from 'pinia';
+import http from '@/api/http';
 
 const authStore = useAuthStore();
 
@@ -12,8 +13,6 @@ export const useCartStore = defineStore('cart', () => {
     const cartItems = ref([]);
 
     const fallbackItems = ref([]);
-
-    const shippingCost = ref(20);
 
     const fetchCart = async () => {
         try{
@@ -45,7 +44,7 @@ export const useCartStore = defineStore('cart', () => {
                     product_size: product.stock.product_size,
                     product_quantity: product.product_quantity
                 });
-             
+
                 product.product_quantity = newQuantity;
             }
 
@@ -81,14 +80,24 @@ export const useCartStore = defineStore('cart', () => {
             cartItems.value.push(product);
         }
     }
+
+    const clearCart = async () => {
+        cartItems.value = [];
+        try{
+            await clearCartProducts();
+            authStore.updateUser({ cart: 0 });
+        }catch(error){
+            console.error("Error clearing cart:", error);
+        }
+    }
     
     return { 
         cartItems, 
-        shippingCost,
         fetchCart,
         addProduct,
         changeProductQuantity,
         updateCartItems, 
-        removeProduct
+        removeProduct,
+        clearCart
     };
 })
