@@ -35,3 +35,12 @@ export const removeProductFromCart = async (productId, productSize) => {
         throw error;
     }
 }
+
+export const clearCartProducts = async () => {
+    try {
+        const response = await http.post('/api/cart/clear');
+        return response.data;
+    }catch(error){
+        throw error;
+    }
+}

@@ -43,7 +43,8 @@ const router = createRouter({
       path: '/cart',
       name: 'cart',
       component: () => import('@/views/products/CartView.vue'),
-    },{
+    },
+    {
       path: '/admin',
       name: 'admin',
       component: () => import('@/views/admin/AdminView.vue'),
@@ -55,7 +56,17 @@ const router = createRouter({
           next({name: 'home'});
         }
       }
-    }
+    },
+    {
+      path: '/payment/success',
+      name: 'paymentSuccess',
+      component: () => import('@/views/payment/SuccessView.vue')
+    },
+    {
+      path: '/payment/failure',
+      name: 'paymentFailure',
+      component: () => import('@/views/payment/FailureView.vue')
+    },
   ],
 })
 
