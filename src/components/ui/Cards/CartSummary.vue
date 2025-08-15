@@ -31,6 +31,7 @@ import { ShieldCheck } from 'lucide-vue-next';
 import { ref, computed, onMounted, inject } from 'vue';
 import { useCartStore } from '@/stores/useCartStore';
 import { usePaymentStore } from '@/stores/usePaymentStore';
+import { useAuthStore } from '@/stores/useAuthStore';
 import { storeToRefs } from 'pinia';
 import { bgLoadingCLass, textLoadingClass } from '@/consts/loadingClasses';
 
@@ -39,7 +40,11 @@ const { cartItems } = storeToRefs(cartStore);
 
 const paymentStore = usePaymentStore();
 
+const authStore = useAuthStore();
+const { user } = storeToRefs(authStore);
+
 const loading = inject('loading');
+const displayConfirmModal = inject('displayConfirmModal');
 
 const displayLoaderModal = ref(false);
 
@@ -82,6 +87,12 @@ const buttonType = computed(() => {
 
 const handlePayment = async () => {
     if (loading.value) return;
+
+    if(!user.value.address){
+        displayConfirmModal("Dirección requerida", "Por favor, complete su dirección antes de continuar.");
+        return;
+    }
+
     displayLoaderModal.value = true;
     try{
         paymentStore.setPaymentProducts(cartItems.value);

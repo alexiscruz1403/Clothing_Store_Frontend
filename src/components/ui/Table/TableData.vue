@@ -8,6 +8,9 @@
             <Button label="Editar" type="primary" @click="handleUpdateData"/>
             <Button label="Eliminar" type="cancel" @click="handleDeleteData"/>
         </div>
+        <div class="flex gap-2" v-else-if="isViewDetailColumn">
+            <Button label="Ver detalles" type="primary" @click="handleViewDetail"/>
+        </div>
         <div class="flex gap-2" v-else>
             <Button label="Avanzar" type="primary" :disabled="isProceedDisabled" @click="handleProceedOrder()"/>
             <Button label="Cancelar" type="cancel" :disabled="isCancelDisabled" @click="handleCancelOrder()"/>
@@ -30,13 +33,15 @@ const props = defineProps({
     }
 });
 
-const emit = defineEmits(['update-item', 'delete-item', 'proceed-order', 'cancel-order']);
+const emit = defineEmits(['update-item', 'delete-item', 'view-detail', 'proceed-order', 'cancel-order']);
 
 const createShowModal = inject('createShowModal');
 
-const isActionsColumn = computed(() => props.header.special === 'actions');
+const isActionsColumn = computed(() => props.header.special === 'actions' || props.header.special === 'detail');
 
 const isEditDeleteColumn = computed(() => props.header.key === 'edit-delete');
+
+const isViewDetailColumn = computed(() => props.header.special === 'detail');
 
 const isProceedDisabled = computed(() => isActionsColumn.value && props.data.some(item => item.status_name === 'Cancelado' || item.status_name === 'Entregado' || item.status_name === 'Rechazado'));
 
@@ -79,6 +84,10 @@ const handleUpdateData = () => {
 const handleDeleteData = () => {
     emit('delete-item');
 };
+
+const handleViewDetail = () => {
+    emit('view-detail');
+}
 
 const handleProceedOrder = () => {
     if(isProceedDisabled.value) return;

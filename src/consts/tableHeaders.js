@@ -25,8 +25,8 @@ const ordersTableHeaders = [
     {label: 'Usuario', key: 'user'},
     {label: 'Productos', key: 'products', special: 'products'},
     {label: 'Total', key: 'total'},
-    {label: 'Fecha', key: 'date'},
-    {label: 'Tipo', key: 'type'},
+    {label: 'Fecha', key: 'order_date'},
+    {label: 'Dirección', key: 'order_address'},
     {label: 'Estado', key: 'statuses', special: 'statuses'},
     {label: 'Acciones', key: 'statuses', special: 'actions'}
 ];

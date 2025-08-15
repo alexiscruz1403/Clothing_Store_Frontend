@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white min-h-screen w-max flex flex-col items-center gap-4 rounded-lg p-4 shadow-md">
+    <div class="bg-white min-h-full w-max flex flex-col items-center gap-4 rounded-lg p-4 shadow-md">
         <PanelOptions 
             :options="adminPanelOptions" 
             :selected="selectedTable" 
