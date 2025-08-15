@@ -29,7 +29,7 @@
                     <div class="border border-b border-l-0 border-r-0 border-t py-1 flex flex-col">
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1">Mi perfil</p>
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer p-1" @click="handleFavoritesClick">Mis favoritos</p>
-                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1">Mis compras</p>
+                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1" @click="handleOrdersClick">Mis compras</p>
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer md:hidden p-1">Mi carrito</p>
                         <p v-if="isAdmin" class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer p-1" @click="handleAdminClick">Administración</p>
                     </div>
@@ -120,11 +120,17 @@ const handleCartClick = () => {
 };
 
 const handleFavoritesClick = () => {
+    handleUserOptionsMenuClick();
     router.push({ name: 'favorites' });
 };
 
+const handleOrdersClick = () => {
+    handleUserOptionsMenuClick();
+    router.push({ name: 'myOrders' });
+}
+
 const handleAdminClick = () => {
-    userOptionsMenu.value = false;
+    handleUserOptionsMenuClick();
     router.push({ name: 'admin' });
 };
 

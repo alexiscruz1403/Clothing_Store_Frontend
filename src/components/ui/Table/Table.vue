@@ -12,6 +12,7 @@
                     :data="data[header.key]" 
                     @update-item="handleUpdateItem(data)" 
                     @delete-item="handleDeleteItem(data)"
+                    @view-detail="handleViewDetail(data)"
                     @proceed-order="handleProceedOrder(data)"
                     @cancel-order="handleCancelOrder(data)" 
                 />
@@ -23,6 +24,7 @@
 
 import TableData from './TableData.vue';
 import { inject } from 'vue';
+import router from '@/router';
 
 const props = defineProps({
     headers: {
@@ -34,8 +36,7 @@ const props = defineProps({
         required: true
     },
     inputs: {
-        type: Array,
-        required: false
+        type: Array
     },
     model: {
         type: String,
@@ -59,6 +60,10 @@ const handleDeleteItem = (data) => {
     const content = `Al aceptar, se eliminará el item "${data[dataKeys[1]]}" de forma permanente. Esta acción no se puede deshacer.`;
     createConfirmModal(title, content, 'delete', data);
 };
+
+const handleViewDetail = (data) => {
+    router.push({ name: 'myOrderDetail', params: { id: data.order_id } });
+}
 
 const handleProceedOrder = (data) => {
     const title = `¿Estás seguro de que deseas avanzar en la compra?`;

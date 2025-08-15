@@ -67,6 +67,15 @@ const router = createRouter({
       name: 'paymentFailure',
       component: () => import('@/views/payment/FailureView.vue')
     },
+    {
+      path: '/my/orders',
+      name: 'myOrders',
+      component: () => import('@/views/orders/MyOrdersView.vue')
+    },{
+      path: '/my/orders/:id',
+      name: 'myOrderDetail',
+      component: () => import('@/views/orders/MyOrderDetailView.vue')
+    }
   ],
 })
 
