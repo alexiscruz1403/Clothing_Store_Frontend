@@ -27,7 +27,7 @@
                 <div v-if="userOptionsMenu" class="absolute right-0 top-9 md:top-10 bg-white shadow-lg rounded-md px-4 py-3 w-52 flex flex-col gap-1 z-50">
                     <p class="text-center text-lg font-bold py-1">Nombre de usuario</p>
                     <div class="border border-b border-l-0 border-r-0 border-t py-1 flex flex-col">
-                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1">Mi perfil</p>
+                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1" @click="handleProfileClick">Mi perfil</p>
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer p-1" @click="handleFavoritesClick">Mis favoritos</p>
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1" @click="handleOrdersClick">Mis compras</p>
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer md:hidden p-1">Mi carrito</p>
@@ -117,6 +117,11 @@ const handleLogoClick = () => {
 
 const handleCartClick = () => {
     router.push({ name: 'cart' });
+};
+
+const handleProfileClick = () => {
+    handleUserOptionsMenuClick();
+    router.push({ name: 'myProfile' });
 };
 
 const handleFavoritesClick = () => {
