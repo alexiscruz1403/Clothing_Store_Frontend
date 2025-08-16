@@ -71,10 +71,16 @@ const router = createRouter({
       path: '/my/orders',
       name: 'myOrders',
       component: () => import('@/views/orders/MyOrdersView.vue')
-    },{
+    },
+    {
       path: '/my/orders/:id',
       name: 'myOrderDetail',
       component: () => import('@/views/orders/MyOrderDetailView.vue')
+    },
+    {
+      path: '/my/profile',
+      name: 'myProfile',
+      component: () => import('@/views/profile/MyProfile.vue')
     }
   ],
 })
