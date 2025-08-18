@@ -5,7 +5,11 @@
             <ShoppingBag size="40"/>
             <h2 class="text-xl font-bold">Tu carrito está vacío</h2>
             <p class="md:text-lg">Parece que aún no has agregado productos a tu carrito</p>
-            <Button type="primary" label="Explorar productos" :onClick="handleExploreButtonClick"/>
+            <Button 
+                color="primary" 
+                label="Explorar productos" 
+                :onClick="handleExploreButtonClick"
+            />
         </div>
         <div v-else class="flex flex-col md:flex-row items-center md:items-start md:justify-center 
             gap-4 lg:gap-8">

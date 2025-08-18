@@ -80,7 +80,15 @@
                         </div>
                     </div>
                 </div>
-                <Button type="primary" label="Guardar cambios" function="submit"/>
+                <Button 
+                    color="confirm" 
+                    label="Guardar cambios" 
+                    type="submit"
+                >
+                    <template v-slot:left-icon>
+                        <Save size="16"/>
+                    </template>
+                </Button>
             </form>
         </div>
         <div>
@@ -114,7 +122,15 @@
                         />
                     </div>
                 </div>
-                <Button type="primary" label="Cambiar contraseña" function="submit"/>
+                <Button 
+                    color="primary" 
+                    label="Cambiar contraseña" 
+                    type="submit"
+                >
+                    <template v-slot:left-icon>
+                        <RefreshCcw size="16"/>
+                    </template>
+                </Button>
             </form>
         </div>
     </div>
@@ -122,6 +138,7 @@
 </template>
 <script setup>
 
+import { Save, RefreshCcw } from 'lucide-vue-next';
 import LoadingView from '@/components/ui/View/LoadingView.vue';
 import LoaderModal from '@/components/ui/Modals/LoaderModal.vue';
 import PanelMessage from '@/components/ui/Panel/PanelMessage.vue';

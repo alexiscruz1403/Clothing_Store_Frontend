@@ -27,23 +27,41 @@
             <div class="py-4 flex flex-col gap-4">
                 <div class="flex flex-col gap-1">
                     <div class="flex gap-2">
-                        <Counter v-model="quantity" @quantity-changed="updateQuantity" :max="maxQuantity" :min="1"/>
-                        <button :class="favoriteButtonClass" @click="handleFavoriteClick">
-                            <Heart size="16" fill="black" v-if="props.product_is_in_favorites"/>
-                            <Heart size="16" v-else/>
-                            <span>{{ favoriteText }}</span>
-                        </button>
+                        <Counter 
+                            v-model="quantity" 
+                            @quantity-changed="updateQuantity" 
+                            :max="maxQuantity" 
+                            :min="1"
+                        />
+                        <Button 
+                            color="transparent" 
+                            :label="favoriteText" 
+                            @click="handleFavoriteClick"
+                        >
+                            <template v-slot:left-icon>
+                                <Heart size="16" fill="black" v-if="props.product_is_in_favorites"/>
+                                <Heart size="16" v-else/>
+                            </template>
+                        </Button>
                     </div>
                     <p :class="smallTextClass">Stock: {{ maxQuantity }}</p>
                 </div>
-                <Button :type="buttonType" label="Agregar al carrito" @click="handleCartClick"/>
+                <Button 
+                    :color="buttonColor" 
+                    label="Agregar al carrito" 
+                    @click="handleCartClick"
+                >
+                    <template v-slot:left-icon>
+                        <ShoppingCart size="16" />
+                    </template>
+                </Button>
             </div>
         </div>
     </div>
 </template>
 <script setup>
 
-import { Heart } from 'lucide-vue-next';
+import { Heart, ShoppingCart } from 'lucide-vue-next';
 import Counter from '../Inputs/Counter.vue';
 import Button from '../Buttons/Button.vue';
 import { ref, computed, watch, inject } from 'vue';
@@ -187,7 +205,7 @@ const favoriteButtonClass = computed(() => {
     return loading.value ? `${baseClass} ${textLoadingClass}` : `${baseClass} border border-black cursor-pointer hover:bg-black hover:text-white transition-colors duration-300`
 });
 
-const buttonType = computed(() => {
+const buttonColor = computed(() => {
     return loading.value ? 'loading' : 'primary';
 });
 

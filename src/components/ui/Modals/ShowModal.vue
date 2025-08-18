@@ -3,7 +3,11 @@
         <div class="bg-white p-4 rounded-lg shadow-lg flex flex-col items-center gap-3">
             <h1 class="text-xl text-center font-bold">{{ title }}</h1>
             <Table :headers="headers" :data="props.data" />
-            <Button label="Cerrar" type="primary" @click="handleCloseModal" />
+            <Button 
+                label="Cerrar" 
+                color="primary" 
+                @click="handleCloseModal" 
+            />
         </div>
     </div>
 </template>

@@ -48,8 +48,8 @@
                 </div>
             </div>
             <div class="hidden md:flex gap-2">
-                <Button type="gray" label="Iniciar Sesión" @click="handleLoginClick"/>
-                <Button type="brown" label="Registrarse" @click="handleRegisterClick"/>
+                <Button label="Iniciar Sesión" color="gray" @click="handleLoginClick"/>
+                <Button label="Registrarse" color="brown" @click="handleRegisterClick"/>
             </div>
         </div>
     </header>

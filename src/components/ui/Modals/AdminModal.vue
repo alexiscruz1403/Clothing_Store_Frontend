@@ -64,21 +64,25 @@
                             />
                         </div>
                         <Button 
-                            type="primary" 
+                            color="secondary" 
                             label="Agregar stock" 
                             @click="handleNewStock" 
-                        />
+                        >
+                            <template v-slot:left-icon>
+                                <Plus size="16" />
+                            </template>
+                        </Button>
                     </div>
                 </div>
             </div>
             <div class="flex gap-2">
                 <Button 
-                    type="primary" 
+                    color="primary" 
                     :label="mainButtonLabel" 
                     @click="handleSubmit" 
                 />
                 <Button 
-                    type="cancel" 
+                    color="cancel" 
                     label="Cancelar" 
                     @click="handleClose" 
                 />
@@ -88,6 +92,7 @@
 </template>
 <script setup>
 
+import { Plus } from 'lucide-vue-next';
 import Button from '../Buttons/Button.vue';
 import Input from '../Inputs/Input.vue';
 import Textarea from '../Inputs/Textarea.vue';

@@ -10,9 +10,13 @@
             <Button 
                 v-if="displayButton"
                 :label="addButtonLabel" 
-                type="primary" 
+                color="primary" 
                 @click="handleCreateData"
-            />
+            >
+                <template v-slot:left-icon>
+                    <Plus size="16" />
+                </template>
+            </Button>
         </div>
         <PanelMessage
             v-if="displayPanelMessage" 
@@ -34,6 +38,7 @@
 </template>
 <script setup>
 
+import { Plus } from 'lucide-vue-next';
 import PanelOptions from '@/components/ui/Panel/PanelOptions.vue';
 import PanelMessage from './PanelMessage.vue';
 import Button from '../Buttons/Button.vue';
