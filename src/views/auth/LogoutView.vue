@@ -3,7 +3,12 @@
         <div class="bg-white w-md p-4 rounded-lg shadow-lg flex flex-col gap-4">
             <h1 class="text-2xl text-center">Cerrar sesión</h1>
             <p class="text-center">¿Estás seguro que quieres cerrar sesión?</p>
-            <Button type="primary" label="Aceptar" :onClick="handleLogout" size="large"/>
+            <Button 
+                color="primary" 
+                label="Aceptar" 
+                :onClick="handleLogout" 
+                size="large"
+            />
         </div>
     </div>
     <Modal :title="modal.title" :description="modal.description" :type="modal.type" :visibility="modal.visibility" />

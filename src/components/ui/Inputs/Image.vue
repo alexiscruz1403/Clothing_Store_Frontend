@@ -9,11 +9,21 @@
             </div>
         </div>
         <input type="file" :multiple="props.multiple" accept="image/*" class="hidden" ref="fileInput" @change="handleFileChange"/>
-        <Button type="primary" :label="buttonLabel" @click="handleInputClick" :disabled="!props.modifiable"/>
+        <Button 
+            color="secondary" 
+            :label="buttonLabel" 
+            @click="handleInputClick" 
+            :disabled="!props.modifiable"
+        >
+            <template v-slot:left-icon>
+                <Upload size="16" />
+            </template>
+        </Button>
     </div>
 </template>
 <script setup>
 
+import { Upload } from 'lucide-vue-next';
 import Button from '../Buttons/Button.vue';
 import { ref, computed, defineEmits } from 'vue';
 import { getImgSrc } from '@/utils/getImgSrc';

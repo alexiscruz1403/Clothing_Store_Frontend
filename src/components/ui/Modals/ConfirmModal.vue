@@ -4,8 +4,16 @@
             <h1 class="text-xl text-center font-bold">{{ props.title }}</h1>
             <p>{{ props.content }}</p>
             <div class="flex gap-2">
-                <Button label="Confirmar" type="primary" @click="handleConfirm" />
-                <Button label="Cerrar" type="primary" @click="handleClose" />
+                <Button 
+                    label="Confirmar" 
+                    color="confirm"
+                    @click="handleConfirm" 
+                />
+                <Button 
+                    label="Cerrar" 
+                    color="cancel" 
+                    @click="handleClose" 
+                />
             </div>
         </div>
     </div>

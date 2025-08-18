@@ -14,7 +14,7 @@
                 <p :class="semiboldTextClass">Total</p>
                 <p :class="extraboldTextClass">${{ total }}</p>
             </div>
-            <Button :type="buttonType" label="Pagar" size="large" @click="handlePayment"/>
+            <Button :color="buttonColor" label="Pagar" size="large" @click="handlePayment"/>
             <div class="flex justify-center items-center gap-1">
                 <ShieldCheck size="14" :class="footerIconClass"/>
                 <p :class="footerTextClass">Pago seguro garantizado</p>
@@ -81,7 +81,7 @@ const footerTextClass = computed(() => {
     return loading.value ? `${textLoadingClass}` : 'text-xs text-gray-500';
 });
 
-const buttonType = computed(() => {
+const buttonColor = computed(() => {
     return loading.value ? 'loading' : 'primary';
 });
 

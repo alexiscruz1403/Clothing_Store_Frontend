@@ -1,19 +1,45 @@
 <template>
     <td v-if="htmlContent" v-html="htmlContent" class="p-2 text-left"></td>
     <td v-else-if="listContent" class="p-2 text-left">
-        <Button :label="listButtonLabel" type="primary" @click="handleListClick" />
+        <Button 
+            :label="listButtonLabel" 
+            color="tertiary" 
+            @click="handleListClick" 
+        />
     </td>
     <td v-else-if="isActionsColumn" class="p-2 text-left">
         <div class="flex gap-2" v-if="isEditDeleteColumn">
-            <Button label="Editar" type="primary" @click="handleUpdateData"/>
-            <Button label="Eliminar" type="cancel" @click="handleDeleteData"/>
+            <Button 
+                label="Editar" 
+                color="primary" 
+                @click="handleUpdateData"
+            />
+            <Button 
+                label="Eliminar" 
+                color="cancel" 
+                @click="handleDeleteData"
+            />
         </div>
         <div class="flex gap-2" v-else-if="isViewDetailColumn">
-            <Button label="Ver detalles" type="primary" @click="handleViewDetail"/>
+            <Button 
+                label="Ver detalles" 
+                color="primary" 
+                @click="handleViewDetail"
+            />
         </div>
         <div class="flex gap-2" v-else>
-            <Button label="Avanzar" type="primary" :disabled="isProceedDisabled" @click="handleProceedOrder()"/>
-            <Button label="Cancelar" type="cancel" :disabled="isCancelDisabled" @click="handleCancelOrder()"/>
+            <Button 
+                label="Avanzar" 
+                color="primary" 
+                :disabled="isProceedDisabled" 
+                @click="handleProceedOrder()"
+            />
+            <Button 
+                label="Cancelar" 
+                color="cancel" 
+                :disabled="isCancelDisabled" 
+                @click="handleCancelOrder()"
+            />
         </div>
     </td>
     <td v-else class="p-2 text-left">{{ props.data }}</td>

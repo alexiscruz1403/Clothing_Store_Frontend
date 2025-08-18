@@ -21,7 +21,7 @@
             <div class="flex justify-center items-center">
                 <Button
                     v-if="props.availableProducts" 
-                    :type="buttonType" 
+                    :color="buttonColor" 
                     label="Cargar más"
                     @click="handleFetchProducts" 
                 />  
@@ -82,7 +82,7 @@ const matchesText = computed(() => {
     return `${props.matches} productos encontrados`;
 })
 
-const buttonType = computed(() => {
+const buttonColor = computed(() => {
     return loading.value ? 'loading' : 'secondary';
 });
 

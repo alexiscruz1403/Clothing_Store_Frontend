@@ -10,8 +10,22 @@
                 <p :class="productBrandClass">{{ props.product_brand }}</p>
             </div>
             <p :class="productPriceClass">${{ props.product_price }}</p>
-            <Button v-if="!props.is_in_cart" :type="buttonType" label="Agregar al carrito" @click="handleCartButtonClick" size="large"/>
-            <Button v-else :type="buttonType" label="Ver en carrito" @click="handleCartButtonClick" size="large"/>
+            <Button v-if="!props.is_in_cart" 
+                :color="buttonColor" 
+                label="Agregar al carrito"
+                size="large" 
+                @click="handleCartButtonClick" 
+            >
+                <template v-slot:left-icon>
+                    <ShoppingCart size="16" />
+                </template>
+            </Button>
+            <Button v-else 
+                :color="buttonColor" 
+                label="Ver en carrito"
+                size="large" 
+                @click="handleCartButtonClick" 
+            />
         </div>
         <div :class="heartClass">
             <Heart :fill="heartFill" @click="handleFavoriteClick"/>
@@ -20,7 +34,7 @@
 </template>
 <script setup>
 
-import { Heart } from 'lucide-vue-next';
+import { Heart, ShoppingCart } from 'lucide-vue-next';
 import Button from '../Buttons/Button.vue';
 import { computed, inject } from 'vue';
 import { storeToRefs } from 'pinia';
@@ -121,7 +135,7 @@ const heartClass = computed(() => {
     return 'absolute top-1 right-1 cursor-pointer z-10';
 });
 
-const buttonType = computed(() => {
+const buttonColor = computed(() => {
     if(loading.value) return 'loading';
     
     if(props.is_in_cart) return 'secondary';

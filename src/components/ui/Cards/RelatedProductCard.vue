@@ -10,12 +10,22 @@
                 <p :class="smallTextClass">{{ props.product_brand }}</p>
             </div>
             <p :class="normalTextClass">${{ props.product_price }}</p>
-            <Button :type="buttonType" label="Agregar al carrito" :onClick="handleCartClick"/>
+            <Button 
+                :color="buttonColor"
+                label="Agregar al carrito" 
+                size="large"
+                :onClick="handleCartClick"
+            >
+                <template v-slot:left-icon>
+                    <ShoppingCart size="16" />
+                </template>
+            </Button>
         </div>
     </div>
 </template>
 <script setup>
 
+import { ShoppingCart } from 'lucide-vue-next';
 import Button from '../Buttons/Button.vue';
 import { computed, inject } from 'vue';
 import { bgLoadingCLass, textLoadingClass } from '@/consts/loadingClasses';
@@ -65,7 +75,7 @@ const smallTextClass = computed(() => {
     return loading.value ? `${baseClass} ${textLoadingClass}` : baseClass;
 });
 
-const buttonType = computed(() => {
+const buttonColor = computed(() => {
     return loading.value ? 'loading' : 'primary';
 });
 
