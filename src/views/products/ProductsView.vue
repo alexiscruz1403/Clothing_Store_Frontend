@@ -1,6 +1,9 @@
 <template>
     <div class="w-full h-full flex flex-col items-center justify-center gap-5">
-        <h1 class="text-center text-3xl font-bold">Nuestra colección</h1>
+        <div class="w-[90%] flex justify-between">
+            <h1 class="text-center text-3xl font-bold">Nuestra colección</h1>
+            <Linker label="Volver al inicio" @click="handleLinkerClick"/>
+        </div>
         <div class="w-[90%]">
             <SearchBar @search-changed="handleFiltersChanged"/>
         </div>
@@ -12,6 +15,7 @@
 </template>
 <script setup>
 
+import Linker from '@/components/ui/Buttons/Linker.vue';
 import SearchBar from '@/components/ui/Inputs/SearchBar.vue';
 import Filter from '@/components/ui/Sidebars/Filter.vue';
 import ProductList from '@/components/ui/Lists/ProductList.vue';
@@ -19,6 +23,7 @@ import { ref, onMounted, provide } from 'vue';
 import { useProductsStore } from '@/stores/useProductsStore';
 import { storeToRefs } from 'pinia';
 import { onBeforeRouteLeave } from 'vue-router';
+import router from '@/router';
 
 const productsStore = useProductsStore();
 const { products, matches, availableProducts } = storeToRefs(productsStore);
@@ -46,6 +51,10 @@ const handleFiltersChanged = () => {
         productsStore.clearProducts();
         fetchProducts();
     }, 500);
+};
+
+const handleLinkerClick = () => {
+    router.push({ name: 'home' });
 };
 
 onBeforeRouteLeave((to, from, next) => {

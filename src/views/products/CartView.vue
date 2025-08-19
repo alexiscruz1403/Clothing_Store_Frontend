@@ -1,6 +1,9 @@
 <template>
     <div :class="['flex flex-col gap-5', showEmptyMessage ? 'w-[90%]' : 'w-full md:w-max']">
-        <h1 class="text-center md:text-left text-3xl font-bold">Mi carrito</h1>
+        <div class="w-full flex justify-between">
+            <h1 class="text-center text-3xl font-bold">Mi carrito</h1>
+            <Linker label="Volver a productos" @click="handleLinkerClick"/>
+        </div>
         <div v-if="showEmptyMessage" class="flex flex-col items-center justify-center gap-3 md:gap-2">
             <ShoppingBag size="40"/>
             <h2 class="text-xl font-bold">Tu carrito está vacío</h2>
@@ -26,6 +29,7 @@
 </template>
 <script setup>
 
+import Linker from '@/components/ui/Buttons/Linker.vue';
 import CartSummary from '@/components/ui/Cards/CartSummary.vue';
 import CartList from '@/components/ui/Lists/CartList.vue';
 import Button from '@/components/ui/Buttons/Button.vue';
@@ -65,6 +69,10 @@ const closeConfirmModal = () => {
 const handleExploreButtonClick = () => {
     router.push({ name: 'products' });
 }
+
+const handleLinkerClick = () => {
+    router.push({ name: 'products' });
+};
 
 onMounted(async () => {
     await cartStore.fetchCart();

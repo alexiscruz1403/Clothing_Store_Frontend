@@ -1,12 +1,9 @@
 <template>
     <LoadingView v-if="!displayContent" />
     <div v-else class="flex flex-col gap-4">
-        <div class="flex justify-between items-center">
-            <h1 class="text-2xl font-bold">Mis compras</h1>
-            <div class="flex items-center gap-1 cursor-pointer">
-                <ArrowLeft />
-                <p>Volver al inicio</p>
-            </div>
+        <div class="w-full flex justify-between">
+            <h1 class="text-center text-3xl font-bold">Mis pedidos</h1>
+            <Linker label="Volver al inicio" @click="handleLinkerClick"/>
         </div>
         <div v-if="ordersEmpty" class="min-w-3xl h-96 flex items-center justify-center">
             <p>No tienes compras realizadas.</p>
@@ -18,19 +15,24 @@
 </template>
 <script setup>
 
+import Linker from '@/components/ui/Buttons/Linker.vue';
 import LoadingView from '@/components/ui/View/LoadingView.vue';
 import Table from '@/components/ui/Table/Table.vue';
-import { ArrowLeft } from 'lucide-vue-next';
 import { ref, onMounted } from 'vue';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { getUserOrders } from '@/api/orders';
 import { ORDERS_TABLE } from '@/consts/ordersTable';
+import router from '@/router';
 
 const authStore = useAuthStore();
 
 const displayContent = ref(false);
 const ordersEmpty = ref(true);
 const orders = ref([]);
+
+const handleLinkerClick = () => {
+    router.back();
+};
 
 onMounted(async () => {
     try{
