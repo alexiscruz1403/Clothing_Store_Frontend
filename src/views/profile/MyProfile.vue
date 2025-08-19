@@ -1,12 +1,9 @@
 <template>
     <LoadingView v-if="!displayContent" />
-    <div class="flex flex-col gap-4" v-else>
-        <div class="flex justify-between items-center min-w-3xl">
-            <h1 class="text-2xl font-bold">Mi perfil</h1>
-            <div class="flex items-center gap-1 cursor-pointer">
-                <ArrowLeft />
-                <p>Volver al inicio</p>
-            </div>
+    <div class="flex flex-col gap-4 w-3xl" v-else>
+        <div class="w-full flex justify-between">
+            <h1 class="text-center text-3xl font-bold">Mi perfil</h1>
+            <Linker label="Volver al inicio" @click="handleLinkerClick"/>
         </div>
         <PanelMessage
             v-if="displayPanelMessage" 
@@ -138,6 +135,7 @@
 </template>
 <script setup>
 
+import Linker from '@/components/ui/Buttons/Linker.vue';
 import { Save, RefreshCcw } from 'lucide-vue-next';
 import LoadingView from '@/components/ui/View/LoadingView.vue';
 import LoaderModal from '@/components/ui/Modals/LoaderModal.vue';
@@ -303,6 +301,10 @@ const handleInputChange = (field) => {
         }
     }
 }
+
+const handleLinkerClick = () => {
+    router.push({ name: 'home' });
+};
 
 onMounted(async () => {
     try{

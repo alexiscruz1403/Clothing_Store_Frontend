@@ -1,12 +1,9 @@
 <template>
     <LoadingView v-if="!displayContent" />
     <div v-else class="min-w-xl flex flex-col gap-4">
-        <div class="flex justify-between items-center">
-            <h1 class="text-2xl font-bold">Detalles de la compra</h1>
-            <div class="flex items-center gap-1 cursor-pointer">
-                <ArrowLeft />
-                <p>Volver al inicio</p>
-            </div>
+        <div class="w-full flex justify-between">
+            <h1 class="text-center text-3xl font-bold">Detalles de la compra</h1>
+            <Linker label="Volver a mis pedidos" @click="handleLinkerClick"/>
         </div>
         <div class="flex flex-col bg-white p-4 rounded-md divide-y divide-gray-300">
             <div class="flex flex-col gap-2 pb-4">
@@ -46,14 +43,19 @@
 </template>
 <script setup>
 
+import Linker from '@/components/ui/Buttons/Linker.vue';
 import LoadingView from '@/components/ui/View/LoadingView.vue';
-import { ArrowLeft } from 'lucide-vue-next';
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { getOrder } from '@/api/orders.js';
+import router from '@/router';
 
 const displayContent = ref(false);
 const order = ref(null);
+
+const handleLinkerClick = () => {
+    router.push({ name: 'myOrders' });
+};
 
 onMounted(async() => {
     const route = useRoute();

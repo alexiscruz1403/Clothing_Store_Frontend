@@ -1,10 +1,7 @@
 <template>
     <div class="flex lg:justify-center">
         <div class="flex flex-col gap-4 w-screen lg:max-w-max px-4">
-            <a href="/products" class="flex items-center gap-1 cursor-pointer py-1">
-                <ArrowLeft class="text-[#4F4F4F] text-xs"/>
-                <span class="text-[#4F4F4F] text-sm">Volver a productos</span>
-            </a>
+            <Linker label="Volver a productos" @click="handleLinkerClick"/>
             <ProductDetail
                 :product_id="computedProduct.product_id"
                 :product_images="computedProduct.images"
@@ -36,6 +33,7 @@
 </template>
 <script setup>
 
+import Linker from '@/components/ui/Buttons/Linker.vue';
 import RelatedProductCard from '@/components/ui/Cards/RelatedProductCard.vue';
 import ProductDetail from '@/components/ui/Cards/ProductDetail.vue';
 import { ArrowLeft } from 'lucide-vue-next';
@@ -114,6 +112,10 @@ const computedRelatedProducts = computed(() => {
     ];
     return relatedProducts.value;
 });
+
+const handleLinkerClick = () => {
+    router.push({ name: 'products' });
+};
 
 onMounted(async () => {
     await detailStore.fetchProduct(productId);

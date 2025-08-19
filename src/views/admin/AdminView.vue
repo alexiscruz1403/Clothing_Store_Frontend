@@ -1,11 +1,8 @@
 <template>
     <div class="font-['Nunito'] flex flex-col gap-4">
-        <div class="flex justify-between items-center">
-            <h1 class="text-2xl font-bold">Panel de administración</h1>
-            <div class="flex items-center gap-1 cursor-pointer">
-                <ArrowLeft />
-                <p>Volver al inicio</p>
-            </div>
+        <div class="w-full flex justify-between">
+            <h1 class="text-center text-3xl font-bold">Panel de administración</h1>
+            <Linker label="Volver al inicio" @click="handleLinkerClick"/>
         </div>
         <AdminPanel />
     </div>
@@ -43,12 +40,11 @@
 </template>
 <script setup>
 
+import Linker from '@/components/ui/Buttons/Linker.vue';
 import AdminPanel from '@/components/ui/Panel/AdminPanel.vue';
 import AdminModal from '@/components/ui/Modals/AdminModal.vue';
 import ShowModal from '@/components/ui/Modals/ShowModal.vue';
 import ConfirmModal from '@/components/ui/Modals/ConfirmModal.vue';
-
-import { ArrowLeft } from 'lucide-vue-next';
 import { ref, provide } from 'vue';
 import { useAdminStore } from '@/stores/useAdminStore';
 import { storeToRefs } from 'pinia';
@@ -213,6 +209,10 @@ const handleDeleteItem = async (id) => {
         loading.value = false;
         deleteNewData();
     }
+};
+
+const handleLinkerClick = () => {
+    router.push({ name: 'home' });
 };
 
 </script>
