@@ -11,11 +11,29 @@
         <div :class="productDetailCardClass">
             <div class="flex flex-col gap-4 py-4">
                 <div class="flex flex-col gap-1">
-                    <h2 :class="largeBoldTextClass">{{ props.product_name }}</h2>
-                    <p :class="smallTextClass">{{ props.product_brand }}</p>
-                    <p :class="normalTextClass">{{ props.product_description }}</p>
+                    <Text 
+                        :label="props.product_name"
+                        size="xl"
+                        bold="bold" 
+                        :class="loadingTextClass" 
+                    />
+                    <Text 
+                        :label="props.product_brand"
+                        :level="2"
+                        size="sm"
+                        :class="loadingTextClass" 
+                    />
+                    <Text 
+                        :label="props.product_description" 
+                        :class="loadingTextClass" 
+                    />
                 </div>
-                <p :class="largeBoldTextClass">${{ props.product_price }}</p>
+                <Text 
+                    :label="`$${props.product_price.toFixed(2)}`" 
+                    size="xl" 
+                    bold="semibold" 
+                    :class="loadingTextClass"
+                />
             </div>
             <div class="py-4">
                 <div class="flex gap-1">
@@ -34,7 +52,7 @@
                             :min="1"
                         />
                         <Button 
-                            color="transparent" 
+                            :color="addFavoriteButtonColor" 
                             :label="favoriteText" 
                             @click="handleFavoriteClick"
                         >
@@ -44,10 +62,15 @@
                             </template>
                         </Button>
                     </div>
-                    <p :class="smallTextClass">Stock: {{ maxQuantity }}</p>
+                    <Text 
+                        :label="`Stock: ${maxQuantity}`"
+                        size="sm"
+                        :level="3" 
+                        :class="loadingTextClass"
+                    />
                 </div>
                 <Button 
-                    :color="buttonColor" 
+                    :color="addCartButtonColor" 
                     label="Agregar al carrito" 
                     @click="handleCartClick"
                 >
@@ -64,6 +87,7 @@
 import { Heart, ShoppingCart } from 'lucide-vue-next';
 import Counter from '../Inputs/Counter.vue';
 import Button from '../Buttons/Button.vue';
+import Text from '../Text/Text.vue';
 import { ref, computed, watch, inject } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '@/stores/useAuthStore';
@@ -180,18 +204,8 @@ const productDetailCardClass = computed(() => {
     return loading.value ? `${baseClass} ${bgLoadingCLass}` : `${baseClass} bg-white divide-y divide-gray-200`;
 });
 
-const largeBoldTextClass = computed(() => {
-    const baseClass = "text-xl font-bold";
-    return loading.value ? `${baseClass} ${textLoadingClass} w-max` : baseClass;
-});
-
-const smallTextClass = computed(() => {
-    const baseClass = "text-sm text-[#4F4F4F]";
-    return loading.value ? `${baseClass} ${textLoadingClass} w-max` : baseClass;
-});
-
-const normalTextClass = computed(() => {
-    return loading.value ? `${textLoadingClass}` : '';
+const loadingTextClass = computed(() => {
+    return loading.value ? `${textLoadingClass} w-max` : '';
 });
 
 const sizeButtonClass = computed(() => {
@@ -199,14 +213,12 @@ const sizeButtonClass = computed(() => {
     return loading.value ? `${baseClass} ${textLoadingClass}` : baseClass;
 });
 
-const favoriteButtonClass = computed(() => {
-    const baseClass = "w-48 rounded-md flex justify-center items-center gap-1";
-
-    return loading.value ? `${baseClass} ${textLoadingClass}` : `${baseClass} border border-black cursor-pointer hover:bg-black hover:text-white transition-colors duration-300`
+const addCartButtonColor = computed(() => {
+    return loading.value ? 'loading' : 'primary';
 });
 
-const buttonColor = computed(() => {
-    return loading.value ? 'loading' : 'primary';
+const addFavoriteButtonColor = computed(() => {
+    return loading.value ? 'loading' : 'transparent';
 });
 
 const getSizeButtonsClass = (size) => {

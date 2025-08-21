@@ -1,23 +1,45 @@
 <template>
     <div :class="cardClass">
         <div class="flex flex-col gap-4 pb-4">
-            <h2 class="text-lg font-bold">Resumen del pedido</h2>
+            <Heading
+                label="Resumen del pedido"
+                level="2"
+            />
             <div class="flex flex-col gap-2">
                 <div class="flex justify-between">
-                    <p :class="commonTextClass">Subtotal</p>
-                    <p :class="commonTextClass">${{ cartSubtotal }}</p>
+                    <Text 
+                        label="Subtotal"
+                        :class="loadingTextClass"
+                    />
+                    <Text 
+                        :label="`$${cartSubtotal}`"
+                        :class="loadingTextClass"
+                    />
                 </div>
             </div>
         </div>
         <div class="flex flex-col gap-4 pt-4">
             <div class="flex justify-between items-center">
-                <p :class="semiboldTextClass">Total</p>
-                <p :class="extraboldTextClass">${{ total }}</p>
+                <Text 
+                    label="Total"
+                    bold="semibold"
+                    :class="loadingTextClass"
+                />
+                <Text 
+                    :label="`$${total}`"
+                    bold="extrabold"
+                    :class="loadingTextClass"
+                />
             </div>
             <Button :color="buttonColor" label="Pagar" size="large" @click="handlePayment"/>
             <div class="flex justify-center items-center gap-1">
-                <ShieldCheck size="14" :class="footerIconClass"/>
-                <p :class="footerTextClass">Pago seguro garantizado</p>
+                <ShieldCheck size="14" :class="[loading ? textLoadingClass : 'text-[#666666]']"/>
+                <Text 
+                    label="Pago seguro garantizado"
+                    level="3"
+                    size="xs" 
+                    :class="loadingTextClass"
+                />
             </div>
         </div>
         <LoaderModal v-if="displayLoaderModal" />
@@ -25,6 +47,8 @@
 </template>
 <script setup>
 
+import Heading from '../Text/Heading.vue';
+import Text from '../Text/Text.vue';
 import Button from '../Buttons/Button.vue';
 import LoaderModal from '../Modals/LoaderModal.vue';
 import { ShieldCheck } from 'lucide-vue-next';
@@ -61,24 +85,8 @@ const cardClass = computed(() => {
     return loading.value ? `${baseClass} ${bgLoadingCLass}` : `${baseClass} text-[#2E2E2E] bg-white`;
 });
 
-const commonTextClass = computed(() => {
+const loadingTextClass = computed(() => {
     return loading.value ? `${textLoadingClass}` : '';
-});
-
-const semiboldTextClass = computed(() => {
-    return loading.value ? `${textLoadingClass}` : 'font-semibold';
-});
-
-const extraboldTextClass = computed(() => {
-    return loading.value ? `${textLoadingClass}` : 'font-extrabold';
-});
-
-const footerIconClass = computed(() => {
-    return loading.value ? `${textLoadingClass}` : 'text-gray-500';
-});
-
-const footerTextClass = computed(() => {
-    return loading.value ? `${textLoadingClass}` : 'text-xs text-gray-500';
 });
 
 const buttonColor = computed(() => {

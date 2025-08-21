@@ -1,7 +1,10 @@
 <template>
     <div class="font-['Nunito'] flex flex-col gap-4">
         <div class="w-full flex justify-between">
-            <h1 class="text-center text-3xl font-bold">Panel de administración</h1>
+            <Heading
+                label="Panel de administración"
+                level="1"
+            />
             <Linker label="Volver al inicio" @click="handleLinkerClick"/>
         </div>
         <AdminPanel />
@@ -40,6 +43,7 @@
 </template>
 <script setup>
 
+import Heading from '@/components/ui/Text/Heading.vue';
 import Linker from '@/components/ui/Buttons/Linker.vue';
 import AdminPanel from '@/components/ui/Panel/AdminPanel.vue';
 import AdminModal from '@/components/ui/Modals/AdminModal.vue';

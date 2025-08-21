@@ -2,7 +2,10 @@
     <LoadingView v-if="!displayContent" />
     <div class="flex flex-col gap-4 w-3xl" v-else>
         <div class="w-full flex justify-between">
-            <h1 class="text-center text-3xl font-bold">Mi perfil</h1>
+            <Heading
+                label="Mi perfil"
+                level="1"
+            />
             <Linker label="Volver al inicio" @click="handleLinkerClick"/>
         </div>
         <PanelMessage
@@ -13,7 +16,10 @@
         <div>
             <form class="bg-white p-4 rounded-lg shadow-lg flex flex-col items-center gap-4" @submit.prevent="handleProfileSubmit">
                 <div class="flex flex-col gap-2 w-full">
-                    <h2 class="text-xl font-semibold">Información personal</h2>
+                    <Heading
+                        label="Información personal"
+                        level="2"
+                    />
                     <div class="flex flex-col gap-2">
                         <Input 
                             label="Nombre" 
@@ -38,7 +44,10 @@
                     </div>
                 </div>
                 <div class="flex flex-col gap-2 w-full">
-                    <h2 class="text-xl font-semibold">Dirección de envío</h2>
+                    <Heading
+                        label="Dirección de envío"
+                        level="2"
+                    />
                     <div class="grid grid-cols-2 gap-4">
                         <div class="flex flex-col gap-2">
                             <Input 
@@ -91,7 +100,10 @@
         <div>
             <form class="bg-white p-4 rounded-lg shadow-lg flex flex-col items-center gap-4" @submit.prevent="handlePasswordSubmit">
                 <div class="flex flex-col gap-2 w-full">
-                    <h2 class="text-xl font-semibold">Cambiar contraseña</h2>
+                    <Heading
+                        label="Cambiar contraseña"
+                        level="2"
+                    />
                     <div class="flex flex-col gap-2">
                         <Input 
                             label="Contraseña actual" 
@@ -135,6 +147,7 @@
 </template>
 <script setup>
 
+import Heading from '@/components/ui/Text/Heading.vue';
 import Linker from '@/components/ui/Buttons/Linker.vue';
 import { Save, RefreshCcw } from 'lucide-vue-next';
 import LoadingView from '@/components/ui/View/LoadingView.vue';
@@ -143,7 +156,6 @@ import PanelMessage from '@/components/ui/Panel/PanelMessage.vue';
 import Input from '@/components/ui/Inputs/Input.vue';
 import Button from '@/components/ui/Buttons/Button.vue';
 import { ref, reactive, onMounted, h } from 'vue';
-import { ArrowLeft } from 'lucide-vue-next';
 import { useAuthStore } from '@/stores/useAuthStore';
 import { storeToRefs } from 'pinia';
 import useVuelidate from '@vuelidate/core'

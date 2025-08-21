@@ -1,13 +1,25 @@
 <template>
     <div :class="['flex flex-col gap-5', showEmptyMessage ? 'w-[90%]' : 'w-full md:w-max']">
         <div class="w-full flex justify-between">
-            <h1 class="text-center text-3xl font-bold">Mi carrito</h1>
-            <Linker label="Volver a productos" @click="handleLinkerClick"/>
+            <Heading
+                label="Mi carrito"
+                level="1"
+            />
+            <Linker 
+                label="Volver a productos" 
+                @click="handleLinkerClick"
+            />
         </div>
         <div v-if="showEmptyMessage" class="flex flex-col items-center justify-center gap-3 md:gap-2">
             <ShoppingBag size="40"/>
-            <h2 class="text-xl font-bold">Tu carrito está vacío</h2>
-            <p class="md:text-lg">Parece que aún no has agregado productos a tu carrito</p>
+            <Heading
+                label="Tu carrito está vacío"
+                level="2"
+            />
+            <Text 
+                label="No tienes productos en tu carrito. Explora nuestros productos y añade algunos."
+                level="2"
+            />
             <Button 
                 color="primary" 
                 label="Explorar productos" 
@@ -29,6 +41,8 @@
 </template>
 <script setup>
 
+import Heading from '@/components/ui/Text/Heading.vue';
+import Text from '@/components/ui/Text/Text.vue';
 import Linker from '@/components/ui/Buttons/Linker.vue';
 import CartSummary from '@/components/ui/Cards/CartSummary.vue';
 import CartList from '@/components/ui/Lists/CartList.vue';

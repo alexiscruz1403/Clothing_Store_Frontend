@@ -1,20 +1,32 @@
 <template>
     <div class="w-full h-full flex flex-col items-center justify-center gap-5">
         <div class="w-[90%] flex justify-between">
-            <h1 class="text-center text-3xl font-bold">Mis favoritos</h1>
-            <Linker label="Volver al inicio" @click="handleLinkerClick"/>
+            <Heading
+                label="Mis favoritos"
+                level="1" 
+            />
+            <Linker 
+                label="Volver al inicio" 
+                @click="handleLinkerClick"
+            />
         </div>
         <div class="w-[90%]">
             <SearchBar @search-changed="handleFiltersChanged"/>
         </div>
         <div class="w-[90%] flex flex-col gap-5 lg:flex-row">
             <Filter @filters-changed="handleFiltersChanged"/>
-            <ProductList :products="favorites" :matches="matches" @fetch-products="fetchFavorites" :available-products="availableFavorites"/>
+            <ProductList 
+                :products="favorites" 
+                :matches="matches"
+                :available-products="availableFavorites"
+                @fetch-products="fetchFavorites"
+            />
         </div>
     </div>
 </template>
 <script setup>
 
+import Heading from '@/components/ui/Text/Heading.vue';
 import Linker from '@/components/ui/Buttons/Linker.vue';
 import SearchBar from '@/components/ui/Inputs/SearchBar.vue';
 import Filter from '@/components/ui/Sidebars/Filter.vue';

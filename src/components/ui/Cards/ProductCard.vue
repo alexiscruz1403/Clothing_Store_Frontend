@@ -6,10 +6,22 @@
         </div>
         <div class="flex flex-col gap-2">
             <div class="flex flex-col">
-                <p :class="productNameClass">{{ props.product_name }}</p>
-                <p :class="productBrandClass">{{ props.product_brand }}</p>
+                <Text
+                    :label="props.product_name"
+                    :level="1"
+                    :class="loadingTextClass"
+                />
+                <Text
+                    :label="props.product_brand"
+                    :level="2"
+                    size="sm"
+                    :class="loadingTextClass"
+                />
             </div>
-            <p :class="productPriceClass">${{ props.product_price }}</p>
+            <Text
+                :label="`$${props.product_price}`"
+                :class="loadingTextClass"
+            />
             <Button v-if="!props.is_in_cart" 
                 :color="buttonColor" 
                 label="Agregar al carrito"
@@ -36,6 +48,7 @@
 
 import { Heart, ShoppingCart } from 'lucide-vue-next';
 import Button from '../Buttons/Button.vue';
+import Text from '../Text/Text.vue';
 import { computed, inject } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useFavoritesStore } from '@/stores/useFavoritesStore';
@@ -115,18 +128,8 @@ const imgClass = computed(() => {
     return `${baseClass} cursor-pointer`;
 });
 
-const productNameClass = computed(() => {
-    if (loading.value) return `${textLoadingClass}`;
-    return '';
-});
-
-const productBrandClass = computed(() => {
-    if (loading.value) return `${textLoadingClass}`;
-    return 'text-[#4F4F4F] text-sm';
-});
-
-const productPriceClass = computed(() => {
-    if (loading.value) return `${textLoadingClass}`;
+const loadingTextClass = computed(() => {
+    if (loading.value) return textLoadingClass;
     return '';
 });
 

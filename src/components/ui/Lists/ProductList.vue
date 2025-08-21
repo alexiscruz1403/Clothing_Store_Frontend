@@ -1,8 +1,14 @@
 <template>
     <div class="flex flex-col w-full">
         <div class="flex items-center justify-between pb-5">
-            <h2 :class="subtitleClass">Productos</h2>
-            <p :class="foundProductsClass">{{ matchesText }}</p>
+            <Heading 
+                label="Productos" 
+                :level="2"
+            />
+            <Text 
+                :label="matchesText" 
+                :level="3"
+            />
         </div>
         <div class="flex flex-col gap-5">
             <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
@@ -28,13 +34,27 @@
             </div>          
         </div>
         <div v-if="showEmptyMessage" class="w-full h-20 lg:h-full flex justify-center items-center">
-            <p class="text-lg text-center bg-gray-400 text-transparent" v-if="loading">{{ props.emptyMessage }}</p>
-            <p class="text-lg text-center" v-else>{{ props.emptyMessage }}</p>
+            <Text 
+                v-if="loading"
+                :label="props.emptyMessage"
+                :level="3"
+                size="lg"
+                class="text-transparent"
+            />
+            <Text 
+                v-else
+                :label="props.emptyMessage"
+                :level="3"
+                size="lg"
+                class="text-center"
+            />
         </div>
     </div>
 </template>
 <script setup>
 
+import Heading from '../Text/Heading.vue';
+import Text from '../Text/Text.vue';
 import ProductCard from '../Cards/ProductCard.vue';
 import Button from '../Buttons/Button.vue';
 import { computed, defineEmits, inject } from 'vue';
@@ -62,17 +82,6 @@ const props = defineProps({
 const loading = inject('loading');
 
 const emit = defineEmits(['fetch-products']);
-
-const subtitleClass = computed(() => {
-    const baseClass = 'text-xl';
-    if(loading.value && props.products.length == 0) return `${baseClass} ${bgLoadingCLass}`;
-    return baseClass;
-});
-
-const foundProductsClass = computed(() => {
-    if (loading.value && props.products.length == 0) return `${bgLoadingCLass}`;
-    return 'text-[#4F4F4F]';
-});
 
 const showEmptyMessage = computed(() => {
     return props.products.length === 0 && !loading.value;

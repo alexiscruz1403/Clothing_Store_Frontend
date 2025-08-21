@@ -6,7 +6,10 @@
             @option-changed="handleOptionChange"
         />
         <div class="flex justify-between items-center w-full">
-            <h1 class="text-lg font-semibold">{{ selectedTable.label }}</h1>
+            <Heading
+                :label="selectedTable.label"
+                level="2"
+            />
             <Button 
                 v-if="displayButton"
                 :label="addButtonLabel" 
@@ -39,6 +42,7 @@
 <script setup>
 
 import { Plus } from 'lucide-vue-next';
+import Heading from '../Text/Heading.vue';
 import PanelOptions from '@/components/ui/Panel/PanelOptions.vue';
 import PanelMessage from './PanelMessage.vue';
 import Button from '../Buttons/Button.vue';
