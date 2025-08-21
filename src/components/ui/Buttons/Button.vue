@@ -57,7 +57,7 @@ const computedClass = computed(() => {
         large: 'w-full'
     }[props.size] || '';
 
-    const disabledClass = props.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer';
+    const disabledClass = props.disabled ? 'opacity-50 cursor-not-allowed' : props.color !== 'loading' ? 'cursor-pointer' : '';
 
     return `${baseClass} ${colorClass} ${sizeClass} ${disabledClass}`;
 });

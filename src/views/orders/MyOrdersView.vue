@@ -2,11 +2,19 @@
     <LoadingView v-if="!displayContent" />
     <div v-else class="flex flex-col gap-4">
         <div class="w-full flex justify-between">
-            <h1 class="text-center text-3xl font-bold">Mis pedidos</h1>
-            <Linker label="Volver al inicio" @click="handleLinkerClick"/>
+            <Heading 
+                label="Mis pedidos" 
+                level="1" 
+            />
+            <Linker 
+                label="Volver al inicio" 
+                @click="handleLinkerClick"
+            />
         </div>
         <div v-if="ordersEmpty" class="min-w-3xl h-96 flex items-center justify-center">
-            <p>No tienes compras realizadas.</p>
+            <Text 
+                label="No tienes compras realizadas."
+            />
         </div>
         <div v-else class="bg-white p-4 rounded-lg">
             <Table :headers="ORDERS_TABLE" :data="orders"/>
@@ -15,6 +23,8 @@
 </template>
 <script setup>
 
+import Heading from '@/components/ui/Text/Heading.vue';
+import Text from '@/components/ui/Text/Text.vue';
 import Linker from '@/components/ui/Buttons/Linker.vue';
 import LoadingView from '@/components/ui/View/LoadingView.vue';
 import Table from '@/components/ui/Table/Table.vue';

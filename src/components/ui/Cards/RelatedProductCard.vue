@@ -6,10 +6,21 @@
         </div>
         <div class="flex flex-col gap-2">
             <div class="flex flex-col">
-                <p :class="normalTextClass">{{ props.product_name }}</p>
-                <p :class="smallTextClass">{{ props.product_brand }}</p>
+                <Text 
+                    :label="props.product_name" 
+                    :class="loadingTextClass" 
+                />
+                <Text 
+                    :label="props.product_brand"
+                    :level="2"
+                    size="sm" 
+                    :class="loadingTextClass" 
+                />
             </div>
-            <p :class="normalTextClass">${{ props.product_price }}</p>
+            <Text 
+                :label="`$${props.product_price}`" 
+                :class="loadingTextClass" 
+            />
             <Button 
                 :color="buttonColor"
                 label="Agregar al carrito" 
@@ -26,6 +37,7 @@
 <script setup>
 
 import { ShoppingCart } from 'lucide-vue-next';
+import Text from '../Text/Text.vue';
 import Button from '../Buttons/Button.vue';
 import { computed, inject } from 'vue';
 import { bgLoadingCLass, textLoadingClass } from '@/consts/loadingClasses';
@@ -66,13 +78,8 @@ const imgClass = computed(() => {
     return loading.value ? `${baseClass} ${textLoadingClass}` : baseClass;
 });
 
-const normalTextClass = computed(() => {
-    return loading.value ? `${textLoadingClass}` : '';
-});
-
-const smallTextClass = computed(() => {
-    const baseClass = "text-sm text-[#4F4F4F]";
-    return loading.value ? `${baseClass} ${textLoadingClass}` : baseClass;
+const loadingTextClass = computed(() => {
+    return loading.value ? textLoadingClass : '';
 });
 
 const buttonColor = computed(() => {

@@ -13,7 +13,10 @@
                 :product_is_in_favorites="computedProduct.product_is_in_favorites"
             />
             <div class="flex flex-col gap-4 max-w-full">
-                <h2 class="text-xl font-medium">Productos relacionados</h2>
+                <Heading 
+                    label="Productos relacionados"
+                    :level="2"
+                />
                 <div class="w-full overflow-x-auto">
                     <div class="flex gap-4 w-max">
                         <RelatedProductCard
@@ -34,9 +37,9 @@
 <script setup>
 
 import Linker from '@/components/ui/Buttons/Linker.vue';
+import Heading from '@/components/ui/Text/Heading.vue';
 import RelatedProductCard from '@/components/ui/Cards/RelatedProductCard.vue';
 import ProductDetail from '@/components/ui/Cards/ProductDetail.vue';
-import { ArrowLeft } from 'lucide-vue-next';
 import { useRoute } from 'vue-router';
 import { useDetailStore } from '@/stores/useDetailStore';
 import { storeToRefs } from 'pinia';

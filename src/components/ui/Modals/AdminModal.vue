@@ -1,10 +1,16 @@
 <template>
     <div class="bg-black/50 h-screen w-screen p-5 flex justify-center items-center fixed top-0 left-0">
         <form class="bg-white p-4 flex flex-col items-center gap-4 rounded-lg shadow-lg max-h-full min-w-min max-w-5xl overflow-y-auto" @submit.prevent="" enctype="multipart/form-data">
-            <h1 class="text-xl text-center font-bold">{{ props.title }}</h1>
+            <Heading
+                :label="props.title"
+                level="1"
+            />
             <div :class="computedGroupsClass">
                 <div v-for="groups in computedInputsGroups" :key="groups.title.label">
-                    <h2 class="text-lg font-semibold mb-2">{{ groups.title.label }}</h2>
+                    <Heading
+                        :label="groups.title.label"
+                        level="2"
+                    />
                     <div :class="getInputsClass(groups.commonInputs)">
                         <Input v-for="input in groups.commonInputs" 
                             :key="input.key" 
@@ -93,6 +99,7 @@
 <script setup>
 
 import { Plus } from 'lucide-vue-next';
+import Heading from '../Text/Heading.vue';
 import Button from '../Buttons/Button.vue';
 import Input from '../Inputs/Input.vue';
 import Textarea from '../Inputs/Textarea.vue';
