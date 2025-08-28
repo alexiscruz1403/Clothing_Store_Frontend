@@ -143,7 +143,7 @@
             </form>
         </div>
     </div>
-    <LoaderModal v-if="isLoading" />
+    <LoaderModal v-if="isLoading" content="Por favor espere mientras modificamos su información"/>
 </template>
 <script setup>
 
