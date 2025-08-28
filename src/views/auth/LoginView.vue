@@ -90,6 +90,9 @@ const handleSubmit = async () => {
     }finally{
         setTimeout(() => {
             modal.visibility = false;
+            modal.title = 'Iniciando sesión';
+            modal.description = 'Por favor, espere mientras iniciamos sesión...';
+            modal.visibility = 'waiting';
             if(loginSuccess.value) router.push({ name: 'home' });
         }, 2000);
     }
