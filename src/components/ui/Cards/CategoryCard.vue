@@ -29,7 +29,7 @@ const props = defineProps({
 const filtersStore = useFiltersStore();
 
 const handleCardClick = () => {
-    filtersStore.setCategory(props.categoryId);
+    filtersStore.setCategory(props.categoryName);
     router.push({ name: 'products' });
 }
 

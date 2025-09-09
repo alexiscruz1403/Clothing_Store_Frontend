@@ -4,7 +4,7 @@
             <Menu class="h-9 md:h-6 w-9 md:w-6" @click="handleNavOptionMenuClick"/>
             <div v-if="navOptionMenu" class="absolute left-5 top-14 md:top-10 bg-white shadow-lg rounded-md px-4 py-3 w-52 flex flex-col gap-1">
                 <nav class="flex flex-col divide-y divide-[#E6E6E6]">
-                    <button v-for="genre in genres" class="bg-white text-center cursor-pointer py-2" @click="handleNavClick(genre)">{{ genre }}</button>
+                    <button v-for="genre in genres" class="bg-white text-center cursor-pointer py-2" @click="handleNavClick(genre.genre_name)">{{ genre.genre_name }}</button>
                 </nav>
             </div>
         </div>
@@ -30,7 +30,7 @@
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1" @click="handleProfileClick">Mi perfil</p>
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer p-1" @click="handleFavoritesClick">Mis favoritos</p>
                         <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1" @click="handleOrdersClick">Mis compras</p>
-                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer md:hidden p-1">Mi carrito</p>
+                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer md:hidden p-1" @click="handleCartClick">Mi carrito</p>
                         <p v-if="isAdmin" class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer p-1" @click="handleAdminClick">Administración</p>
                     </div>
                     <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1 transition-colors duration-300" @click="handleLogoutClick">Cerrar sesión</p>
@@ -116,6 +116,7 @@ const handleLogoClick = () => {
 };
 
 const handleCartClick = () => {
+    handleUserOptionsMenuClick();
     router.push({ name: 'cart' });
 };
 
@@ -145,10 +146,12 @@ const handleLogoutClick = () => {
 }
 
 const handleRegisterClick = () => {
+    handleAuthOptionsMenuClick();
     router.push({ name: 'register' });
 };
 
 const handleLoginClick = () => {
+    handleAuthOptionsMenuClick();
     router.push({ name: 'login' });
 };
 

@@ -81,7 +81,7 @@ const total = computed(() => {
 });
 
 const cardClass = computed(() => {
-    const baseClass = "w-[90%] md:w-80 h-max md:sticky md:top-5 font-['Nunito'] p-4 rounded-lg shadow-md flex flex-col divide-y divide-gray-300";
+    const baseClass = "w-full md:w-80 h-max md:sticky md:top-5 font-['Nunito'] p-4 rounded-lg shadow-md flex flex-col divide-y divide-gray-300";
     return loading.value ? `${baseClass} ${bgLoadingCLass}` : `${baseClass} text-[#2E2E2E] bg-white`;
 });
 

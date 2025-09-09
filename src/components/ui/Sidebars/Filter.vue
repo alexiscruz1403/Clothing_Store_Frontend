@@ -29,7 +29,8 @@
                 <div class="flex flex-col md:flex-row lg:flex-col gap-1 md:gap-3 lg:gap-1">
                     <Checkbox v-for="category in categories" 
                         :id="category.category_name" 
-                        :label="category.category_name" 
+                        :label="category.category_name"
+                        :checked="categoryFilter.includes(category.category_name)" 
                         @click="handleFilterCategoryClick(category.category_name)"
                     />
                 </div>
@@ -56,6 +57,7 @@ const { categories } = storeToRefs(categoriesStore);
 
 const filtersStore = useFiltersStore();
 const { genreFilter } = storeToRefs(filtersStore);
+const { categoryFilter } = storeToRefs(filtersStore);
 
 const emit = defineEmits(['filters-changed']);
 

@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div v-for="stockInput in groups.stockInputs" class="flex flex-col gap-2">
-                        <div class="grid grid-cols-4 gap-3">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                             <Input v-for="stock in stocks" 
                                 :key="stock.product_size" 
                                 :label="stock.product_size" 
@@ -136,8 +136,8 @@ const createConfirmModal = inject('createConfirmModal');
 const newData = inject('newData');
 
 const computedGroupsClass = computed(() => {
-    const baseClass = 'grid gap-8';
-    return props.inputs.length > 1 ? `${baseClass} grid-cols-2` : `${baseClass} grid-cols-1`;
+    const baseClass = 'grid grid-cols-1 gap-8';
+    return props.inputs.length > 1 ? `${baseClass} md:grid-cols-2` : `${baseClass} md:grid-cols-1`;
 });
 
 const mainButtonLabel = computed(() => {
@@ -238,9 +238,9 @@ const uploadedImages = ref([]);
 const deletedImages = ref([]);
 
 const getInputsClass = (inputs) => {
-    const baseClass = 'grid gap-4';
-    if(inputs.length < 3) return `${baseClass} grid-cols-${inputs.length}`;
-    return `${baseClass} grid-cols-3`;
+    const baseClass = 'grid grid-cols-2 gap-4';
+    if(inputs.length < 3) return `${baseClass} md:grid-cols-${inputs.length}`;
+    return `${baseClass} md:grid-cols-3`;
 }
 
 const getFilteredImages = (primary) => {

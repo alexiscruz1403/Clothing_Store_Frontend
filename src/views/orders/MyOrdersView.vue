@@ -1,10 +1,10 @@
 <template>
     <LoadingView v-if="!displayContent" />
-    <div v-else class="flex flex-col gap-4">
+    <div v-else class="flex flex-col items-center gap-4 w-screen max-w-3xl px-4">
         <div class="w-full flex justify-between">
             <Heading 
                 label="Mis pedidos" 
-                level="1" 
+                :level="1" 
             />
             <Linker 
                 label="Volver al inicio" 
@@ -16,7 +16,7 @@
                 label="No tienes compras realizadas."
             />
         </div>
-        <div v-else class="bg-white p-4 rounded-lg">
+        <div v-else class="w-full bg-white p-4 rounded-lg overflow-auto">
             <Table :headers="ORDERS_TABLE" :data="orders"/>
         </div>
     </div>

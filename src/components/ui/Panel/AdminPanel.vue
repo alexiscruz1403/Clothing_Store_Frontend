@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white min-h-full w-max flex flex-col items-center gap-4 rounded-lg p-4 shadow-md">
+    <div class="bg-white min-h-full w-full flex flex-col items-center gap-4 rounded-lg p-4 shadow-md">
         <PanelOptions 
             :options="adminPanelOptions" 
             :selected="selectedTable" 
@@ -26,12 +26,14 @@
             :status="responseStatus"
             :message="responseMessage" 
         />
-        <Table 
-            :headers="tableHeaders" 
-            :inputs="selectedInputs" 
-            :data="selectedData"
-            :model="selectedTable.value"     
-        />
+        <div class="w-full overflow-auto flex flex-col">
+            <Table 
+                :headers="tableHeaders" 
+                :inputs="selectedInputs" 
+                :data="selectedData"
+                :model="selectedTable.value"     
+            />
+        </div>
         <Pagination 
             :current="currentPage" 
             :last="lastPage" 

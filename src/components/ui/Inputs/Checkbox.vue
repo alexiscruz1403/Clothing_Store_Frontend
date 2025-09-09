@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center gap-2">
-        <input type="checkbox" :id="props.id" :name="props.id" class="cursor-pointer size-4 accent-[#2E2E2E] border-gray-300 rounded" @click="$emit('click')"/>
+        <input type="checkbox" :id="props.id" :name="props.id" :checked="props.checked" class="cursor-pointer size-4 accent-[#2E2E2E] border-gray-300 rounded" @click="$emit('click')"/>
         <label :for="props.id" class="cursor-pointer text-[#2E2E2E] font-['Nunito']">{{ props.label }}</label>
     </div>
 </template>
@@ -17,6 +17,10 @@ const props = defineProps({
         type: String,
         required: true
     },
+    checked: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const emits = defineEmits(['click']);

@@ -44,6 +44,7 @@ import { useRoute } from 'vue-router';
 import { useDetailStore } from '@/stores/useDetailStore';
 import { storeToRefs } from 'pinia';
 import { ref, onMounted, computed, provide } from 'vue';
+import router from '@/router';
 
 const route = useRoute();
 const productId = route.params.id;

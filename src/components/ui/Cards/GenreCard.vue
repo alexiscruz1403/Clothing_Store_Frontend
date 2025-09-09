@@ -34,7 +34,7 @@ const text = computed(() => {
 const filtersStore = useFiltersStore();
 
 const handleCardClick = () => {
-    filtersStore.setGenre(props.genreId);
+    filtersStore.setGenre(props.genreName);
     router.push({ name: 'products' });
 }
 

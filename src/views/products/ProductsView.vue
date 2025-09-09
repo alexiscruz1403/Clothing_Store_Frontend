@@ -33,12 +33,15 @@ import Filter from '@/components/ui/Sidebars/Filter.vue';
 import ProductList from '@/components/ui/Lists/ProductList.vue';
 import { ref, onMounted, provide } from 'vue';
 import { useProductsStore } from '@/stores/useProductsStore';
+import { useFiltersStore } from '@/stores/useFiltersStore';
 import { storeToRefs } from 'pinia';
 import { onBeforeRouteLeave } from 'vue-router';
 import router from '@/router';
 
 const productsStore = useProductsStore();
 const { products, matches, availableProducts } = storeToRefs(productsStore);
+
+const filtersStore = useFiltersStore();
 
 const loading = ref(true);
 provide('loading', loading);
@@ -71,6 +74,7 @@ const handleLinkerClick = () => {
 
 onBeforeRouteLeave((to, from, next) => {
     productsStore.clearProducts();
+    filtersStore.resetFilters();
     next();
 })
 

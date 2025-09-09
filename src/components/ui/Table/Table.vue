@@ -1,5 +1,5 @@
 <template>
-    <table class="table-auto border-collapse w-full relative">
+    <table class="w-full table-auto border-collapse relative">
         <thead>
             <tr class="bg-gray-200">
                 <th v-for="header in headers" class="p-2">{{ header.label }}</th>
