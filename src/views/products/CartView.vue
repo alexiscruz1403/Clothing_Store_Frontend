@@ -1,5 +1,5 @@
 <template>
-    <div :class="['flex flex-col gap-5', showEmptyMessage ? 'w-[90%]' : 'w-full md:w-max']">
+    <div class="w-screen md:min-w-max md:max-w-5xl flex flex-col items-center gap-5 px-4">
         <div class="w-full flex justify-between">
             <Heading
                 label="Mi carrito"
@@ -10,7 +10,7 @@
                 @click="handleLinkerClick"
             />
         </div>
-        <div v-if="showEmptyMessage" class="flex flex-col items-center justify-center gap-3 md:gap-2">
+        <div v-if="showEmptyMessage" class="w-full flex flex-col items-center justify-center gap-3 md:gap-2">
             <ShoppingBag size="40"/>
             <Heading
                 label="Tu carrito está vacío"
@@ -26,8 +26,8 @@
                 :onClick="handleExploreButtonClick"
             />
         </div>
-        <div v-else class="flex flex-col md:flex-row items-center md:items-start md:justify-center 
-            gap-4 lg:gap-8">
+        <div v-else class="w-full flex flex-col md:flex-row items-center md:items-start md:justify-between 
+            gap-4">
             <CartList :products="cartItems" />
             <CartSummary />
         </div>

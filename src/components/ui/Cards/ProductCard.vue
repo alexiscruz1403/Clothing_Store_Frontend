@@ -29,7 +29,7 @@
                 @click="handleCartButtonClick" 
             >
                 <template v-slot:left-icon>
-                    <ShoppingCart size="16" />
+                    <ShoppingCart size="16" class="hidden md:block"/>
                 </template>
             </Button>
             <Button v-else 

@@ -29,7 +29,7 @@ const props = defineProps({
 const loading = inject('loading');
 
 const listClass = computed(() => {
-    const baseClass = "rounded-lg shadow-md flex flex-col py-2 px-4 divide-y divide-gray-300 w-[90%] md:w-max lg:w-max";
+    const baseClass = "rounded-lg shadow-md flex flex-col py-2 px-4 divide-y divide-gray-300 w-full md:w-max lg:w-max";
     return loading.value ? `${baseClass} ${bgLoadingCLass}` : `${baseClass} bg-white`;
 });
 

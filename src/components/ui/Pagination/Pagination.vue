@@ -1,6 +1,6 @@
 <template>
     <div class="flex gap-3">
-        <div class="flex items-center gap-1">
+        <div class="items-center gap-1 hidden md:flex">
             <PaginationButton 
                 v-for="button in leftButtons"
                 :key="button.label"
@@ -23,7 +23,7 @@
                 @click="handlePageClick"
             />
         </div>
-        <div class="flex items-center gap-1">
+        <div class="hidden md:flex items-center gap-1">
             <PaginationButton 
                 v-for="button in rightButtons"
                 :key="button.label"

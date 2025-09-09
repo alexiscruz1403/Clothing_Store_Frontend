@@ -1,10 +1,10 @@
 <template>
     <LoadingView v-if="!displayContent" />
-    <div v-else class="min-w-xl flex flex-col gap-4">
+    <div v-else class="md:min-w-xl flex flex-col gap-4 px-4">
         <div class="w-full flex justify-between">
             <Heading 
                 label="Detalle de la compra" 
-                level="1"
+                :level="1"
             />
             <Linker 
                 label="Volver a mis pedidos" 
@@ -15,7 +15,7 @@
             <div class="flex flex-col gap-2 pb-4">
                 <Heading
                     label="Información de la compra"
-                    level="2"
+                    :level="2"
                 />
                 <div>
                     <div class="flex gap-1">
@@ -50,7 +50,7 @@
             <div class="flex flex-col gap-1 py-4">
                 <Heading
                     label="Dirección de envío"
-                    level="2"
+                    :level="2"
                 />
                 <div>
                     <div class="flex gap-1">
@@ -103,7 +103,7 @@
             <div class="flex flex-col gap-1 py-4">
                 <Heading
                     label="Productos comprados"
-                    level="2"
+                    :level="2"
                 />
                 <div v-for="item in order.products" :key="item.id" class="flex items-center justify-between py-2">
                     <div>

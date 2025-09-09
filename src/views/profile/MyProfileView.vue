@@ -1,6 +1,6 @@
 <template>
     <LoadingView v-if="!displayContent" />
-    <div class="flex flex-col gap-4 w-3xl" v-else>
+    <div class="flex flex-col items-center gap-4 w-screen max-w-3xl px-4" v-else>
         <div class="w-full flex justify-between">
             <Heading
                 label="Mi perfil"
@@ -13,7 +13,7 @@
             :status="responseStatus"
             :message="responseMessage" 
         />
-        <div>
+        <div class="w-full">
             <form class="bg-white p-4 rounded-lg shadow-lg flex flex-col items-center gap-4" @submit.prevent="handleProfileSubmit">
                 <div class="flex flex-col gap-2 w-full">
                     <Heading
@@ -48,7 +48,7 @@
                         label="Dirección de envío"
                         level="2"
                     />
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="flex flex-col gap-2">
                             <Input 
                                 label="Dirección" 
@@ -97,7 +97,7 @@
                 </Button>
             </form>
         </div>
-        <div>
+        <div class="w-full">
             <form class="bg-white p-4 rounded-lg shadow-lg flex flex-col items-center gap-4" @submit.prevent="handlePasswordSubmit">
                 <div class="flex flex-col gap-2 w-full">
                     <Heading

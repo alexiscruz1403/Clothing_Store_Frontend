@@ -13,7 +13,6 @@
         <div class="flex flex-col gap-5">
             <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
                 <ProductCard v-for="product in products"
-                    :key="product.product_id"
                     :product_id=product.product_id
                     :product_images="product.images"
                     :product_name="product.product_name"

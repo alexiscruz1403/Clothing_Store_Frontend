@@ -19,7 +19,7 @@ export const useProductsStore = defineStore("products", () => {
 
     const matches = ref(0);
 
-    const availableProducts = ref(true);
+    const availableProducts = ref(false);
 
     const fetchProducts = async () => { 
         try {
@@ -40,7 +40,7 @@ export const useProductsStore = defineStore("products", () => {
                 availableProducts.value = false;
             };
         }catch(error){
-            throw error;
+            availableProducts.value = false;
         }
     }
 
@@ -57,6 +57,6 @@ export const useProductsStore = defineStore("products", () => {
         availableProducts,
         params,
         fetchProducts,
-        clearProducts
+        clearProducts,
     }
 });

@@ -1,9 +1,9 @@
 <template>
-    <div class="font-['Nunito'] flex flex-col gap-4">
+    <div class="w-screen lg:w-max lg:max-w-screen font-['Nunito'] flex flex-col gap-4 px-4">
         <div class="w-full flex justify-between">
             <Heading
                 label="Panel de administración"
-                level="1"
+                :level="1"
             />
             <Linker label="Volver al inicio" @click="handleLinkerClick"/>
         </div>
@@ -171,7 +171,6 @@ const handleCreateItem = async (data) => {
         const response = await adminStore.createItem(data);
         await adminStore.fetchData();
         closeModal();
-        console.log('Item created successfully:', response);
         handlePanelMessage('success', response.message);
     }catch(error){
         handlePanelMessage('error', error.message);
