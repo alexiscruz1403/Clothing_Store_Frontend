@@ -27,23 +27,23 @@
                 <div v-if="userOptionsMenu" class="absolute right-0 top-9 md:top-10 bg-white shadow-lg rounded-md px-4 py-3 w-52 flex flex-col gap-1 z-50">
                     <p class="text-center text-lg font-bold py-1">Nombre de usuario</p>
                     <div class="border border-b border-l-0 border-r-0 border-t py-1 flex flex-col">
-                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1" @click="handleProfileClick">Mi perfil</p>
-                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer p-1" @click="handleFavoritesClick">Mis favoritos</p>
-                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1" @click="handleOrdersClick">Mis compras</p>
-                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer md:hidden p-1" @click="handleCartClick">Mi carrito</p>
-                        <p v-if="isAdmin" class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer p-1" @click="handleAdminClick">Administración</p>
+                        <a class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1" @click="handleProfileClick">Mi perfil</a>
+                        <a class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer p-1" @click="handleFavoritesClick">Mis favoritos</a>
+                        <a class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer transition-colors duration-300 p-1" @click="handleOrdersClick">Mis compras</a>
+                        <a class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer md:hidden p-1" @click="handleCartClick">Mi carrito</a>
+                        <a v-if="isAdmin" class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer p-1" @click="handleAdminClick">Administración</a>
                     </div>
-                    <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1 transition-colors duration-300" @click="handleLogoutClick">Cerrar sesión</p>
+                    <a class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1 transition-colors duration-300" @click="handleLogoutClick">Cerrar sesión</a>
                 </div>
             </div>  
         </div>
         <div v-else class="order-3">
             <div>
                 <CircleUser class="h-9 w-9 md:h-6 md:w-6 md:hidden" @click="handleAuthOptionsMenuClick"/>
-                <div v-if="authOptionsMenu" class="absolute right-5 top-14 md:top-10 bg-white shadow-lg rounded-md px-4 py-3 w-52 flex flex-col gap-1">
-                    <div>
-                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1" @click="handleLoginClick">Iniciar sesión</p>
-                        <p class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1" @click="handleRegisterClick">Registrarse</p>
+                <div v-if="authOptionsMenu" class="absolute right-5 top-14 md:top-10 bg-white shadow-lg rounded-md px-4 py-3 w-52 flex flex-col gap-1 md:hidden">
+                    <div class="flex flex-col gap-1">
+                        <a class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1" @click="handleLoginClick">Iniciar sesión</a>
+                        <a class="hover:bg-[#E6E6E6] rounded-md text-center cursor-pointer py-1" @click="handleRegisterClick">Registrarse</a>
                     </div>
                 </div>
             </div>
