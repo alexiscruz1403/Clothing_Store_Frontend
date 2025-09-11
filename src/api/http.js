@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: "https://clothingstorebackend-production-8f6e.up.railway.app",
     headers: {
         "Content-Type": "application/json",
     },
