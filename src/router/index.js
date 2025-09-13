@@ -37,7 +37,8 @@ const router = createRouter({
     {
       path: '/favorites',
       name: 'favorites',
-      component: () => import('@/views/products/FavoritesView.vue')
+      component: () => import('@/views/products/FavoritesView.vue'),
+
     },
     {
       path: '/cart',
@@ -70,17 +71,17 @@ const router = createRouter({
     {
       path: '/my/orders',
       name: 'myOrders',
-      component: () => import('@/views/orders/MyOrdersView.vue')
+      component: () => import('@/views/orders/MyOrdersView.vue'),
     },
     {
       path: '/my/orders/:id',
       name: 'myOrderDetail',
-      component: () => import('@/views/orders/MyOrderDetailView.vue')
+      component: () => import('@/views/orders/MyOrderDetailView.vue'),
     },
     {
       path: '/my/profile',
       name: 'myProfile',
-      component: () => import('@/views/profile/MyProfileView.vue')
+      component: () => import('@/views/profile/MyProfileView.vue'),
     }
   ],
 })

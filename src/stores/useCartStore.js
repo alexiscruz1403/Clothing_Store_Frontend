@@ -3,7 +3,6 @@ import { defineStore } from 'pinia';
 import { getCart, addProductToCart, updateProductQuantity, removeProductFromCart, clearCartProducts } from '@/api/cart';
 import { useAuthStore } from './useAuthStore';
 import { storeToRefs } from 'pinia';
-import http from '@/api/http';
 
 const authStore = useAuthStore();
 

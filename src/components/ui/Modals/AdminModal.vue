@@ -3,13 +3,13 @@
         <form class="bg-white p-4 flex flex-col items-center gap-4 rounded-lg shadow-lg max-h-full min-w-min max-w-5xl overflow-y-auto" @submit.prevent="" enctype="multipart/form-data">
             <Heading
                 :label="props.title"
-                level="1"
+                :level="1"
             />
             <div :class="computedGroupsClass">
                 <div v-for="groups in computedInputsGroups" :key="groups.title.label">
                     <Heading
                         :label="groups.title.label"
-                        level="2"
+                        :level="2"
                     />
                     <div :class="getInputsClass(groups.commonInputs)">
                         <Input v-for="input in groups.commonInputs" 

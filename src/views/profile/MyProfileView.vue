@@ -320,7 +320,6 @@ const handleLinkerClick = () => {
 
 onMounted(async () => {
     try{
-        await authStore.validateSession();
         profileInfo.username = user.value.username;
         profileInfo.email = user.value.email;
         profileInfo.phone_number = user.value.phone_number;
@@ -331,7 +330,7 @@ onMounted(async () => {
         profileInfo.postal_code = user.value.address ? user.value.address.postal_code : '';
         displayContent.value = true;
     }catch(error){
-        console.error(error);
+        router.push({ name: 'login' });
     }
 });
 

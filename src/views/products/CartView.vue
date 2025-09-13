@@ -3,7 +3,7 @@
         <div class="w-full flex justify-between">
             <Heading
                 label="Mi carrito"
-                level="1"
+                :level="1"
             />
             <Linker 
                 label="Volver a productos" 
@@ -14,11 +14,11 @@
             <ShoppingBag size="40"/>
             <Heading
                 label="Tu carrito está vacío"
-                level="2"
+                :level="2"
             />
             <Text 
                 label="No tienes productos en tu carrito. Explora nuestros productos y añade algunos."
-                level="2"
+                :level="2"
             />
             <Button 
                 color="primary" 
@@ -66,6 +66,17 @@ const showEmptyMessage = computed(() => {
     return cartItems.value.length === 0 && !loading.value;
 });
 
+const fetchCart = async () => {
+    loading.value = true;
+    try{
+        await cartStore.fetchCart();
+    }catch(error){
+        if(error.response && error.response.status === 401) router.push({ name: 'login' });
+    }finally{
+        loading.value = false;
+    }
+}
+
 const displayConfirmModal = (title, content) => {
     confirmModal.value = { title, content };
 }
@@ -89,8 +100,7 @@ const handleLinkerClick = () => {
 };
 
 onMounted(async () => {
-    await cartStore.fetchCart();
-    loading.value = false;
+    await fetchCart();
 });
 
 </script>

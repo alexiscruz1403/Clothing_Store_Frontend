@@ -2,7 +2,7 @@ import http from "./http";
 
 export const getCart = async () => {
     try {
-        const response = await http.get('/api/cart');
+        const response = await http.get('/cart');
         return response.data;
     }catch(error){
         throw error;
@@ -11,7 +11,7 @@ export const getCart = async () => {
 
 export const addProductToCart = async (productId, productSize, productQuantity) => {
     try {
-        const response = await http.post('/api/cart/add', { product_id: productId, product_size: productSize, product_quantity: productQuantity });
+        const response = await http.post('/cart/add', { product_id: productId, product_size: productSize, product_quantity: productQuantity });
         return response.data;
     }catch(error){
         throw error;
@@ -20,7 +20,7 @@ export const addProductToCart = async (productId, productSize, productQuantity) 
 
 export const updateProductQuantity = async (productId, productSize, productQuantity) => {
     try {
-        const response = await http.put('/api/cart/update', { product_id: productId, product_size: productSize, product_quantity: productQuantity });
+        const response = await http.put('/cart/update', { product_id: productId, product_size: productSize, product_quantity: productQuantity });
         return response.data;
     }catch(error){
         throw error;
@@ -29,7 +29,7 @@ export const updateProductQuantity = async (productId, productSize, productQuant
 
 export const removeProductFromCart = async (productId, productSize) => {
     try {
-        const response = await http.delete(`/api/cart/delete/${productId}/${productSize}`);
+        const response = await http.delete(`/cart/delete/${productId}/${productSize}`);
         return response.data;
     }catch(error){
         throw error;
@@ -38,7 +38,7 @@ export const removeProductFromCart = async (productId, productSize) => {
 
 export const clearCartProducts = async () => {
     try {
-        const response = await http.post('/api/cart/clear');
+        const response = await http.post('/cart/clear');
         return response.data;
     }catch(error){
         throw error;

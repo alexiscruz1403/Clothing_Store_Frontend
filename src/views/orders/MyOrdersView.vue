@@ -29,12 +29,9 @@ import Linker from '@/components/ui/Buttons/Linker.vue';
 import LoadingView from '@/components/ui/View/LoadingView.vue';
 import Table from '@/components/ui/Table/Table.vue';
 import { ref, onMounted } from 'vue';
-import { useAuthStore } from '@/stores/useAuthStore';
 import { getUserOrders } from '@/api/orders';
 import { ORDERS_TABLE } from '@/consts/ordersTable';
 import router from '@/router';
-
-const authStore = useAuthStore();
 
 const displayContent = ref(false);
 const ordersEmpty = ref(true);
@@ -46,13 +43,12 @@ const handleLinkerClick = () => {
 
 onMounted(async () => {
     try{
-        await authStore.validateSession();
         const response = await getUserOrders();
         orders.value = response.data;
         ordersEmpty.value = orders.value.length === 0;
         displayContent.value = true;
     }catch(error){
-
+        if(error.response && error.response.status === 401) router.push({ name: 'login' });
     }
 });
 
