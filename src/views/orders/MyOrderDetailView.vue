@@ -160,7 +160,7 @@ onMounted(async() => {
         order.value = response.data;
         displayContent.value = true;
     }catch(error){
-
+        if(error.response && error.response.status === 401) router.push({ name: 'login' });
     }
 });
 </script>

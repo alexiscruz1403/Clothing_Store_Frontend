@@ -2,7 +2,7 @@ import http from "./http";
 
 export const getUserOrders = async () => {
     try{
-        const response = await http.get("api/my/orders");
+        const response = await http.get("/my/orders");
         return response.data;
     }catch(error){
         throw error;
@@ -11,7 +11,7 @@ export const getUserOrders = async () => {
 
 export const getOrder = async (id) => {
     try{
-        const response = await http.get(`api/my/orders/${id}`);
+        const response = await http.get(`/my/orders/${id}`);
         return response.data;
     }catch(error){
         throw error;

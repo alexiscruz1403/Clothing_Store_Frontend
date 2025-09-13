@@ -8,7 +8,7 @@
         <div class="flex justify-between items-center w-full">
             <Heading
                 :label="selectedTable.label"
-                level="2"
+                :level="2"
             />
             <Button 
                 v-if="displayButton"

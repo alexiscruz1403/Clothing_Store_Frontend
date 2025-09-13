@@ -3,7 +3,7 @@ const userTableInputs = [
         { label: 'Info del usuario', type: 'title' },
         { label: 'ID', key: 'user_id', type: 'number', modifiable: false, required: true },
         { label: 'Nombre', key: 'username', type: 'text', modifiable: true, required: true },
-        { label: 'Teléfono', key: 'phone', type: 'text', modifiable: true, required: false },
+        { label: 'Teléfono', key: 'phone_number', type: 'text', modifiable: true, required: false },
     ],
     [
         { label: 'Autenticación', type: 'title' },

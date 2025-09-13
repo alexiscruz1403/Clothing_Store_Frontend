@@ -3,7 +3,7 @@
         <div class="flex flex-col gap-4 pb-4">
             <Heading
                 label="Resumen del pedido"
-                level="2"
+                :level="2"
             />
             <div class="flex flex-col gap-2">
                 <div class="flex justify-between">
@@ -36,7 +36,7 @@
                 <ShieldCheck size="14" :class="[loading ? textLoadingClass : 'text-[#666666]']"/>
                 <Text 
                     label="Pago seguro garantizado"
-                    level="3"
+                    :level="3"
                     size="xs" 
                     :class="loadingTextClass"
                 />
@@ -112,9 +112,5 @@ const handlePayment = async () => {
         displayLoaderModal.value = false;
     }
 }
-
-onMounted(async () => {
-    await cartStore.fetchCart();
-});
 
 </script>

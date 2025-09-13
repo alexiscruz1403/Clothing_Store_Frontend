@@ -2,7 +2,7 @@ import http from "./http";
 
 export const createPaymentPreference = async (products) => {
     try {
-        const response = await http.post('/api/payment', {
+        const response = await http.post('/payment', {
             products
         });
         return response.data.data.data;
@@ -13,7 +13,7 @@ export const createPaymentPreference = async (products) => {
 
 export const getOrderNumber = async () => {
     try {
-        const response = await http.get('/api/payment/success');
+        const response = await http.get('/payment/success');
         return response.data;
     }catch(error){
         throw error;
@@ -22,7 +22,7 @@ export const getOrderNumber = async () => {
 
 export const restoreCart = async () => {
     try {
-        const response = await http.get('/api/payment/failure');
+        const response = await http.get('/payment/failure');
         return response.data;
     } catch (error) {
         throw error;

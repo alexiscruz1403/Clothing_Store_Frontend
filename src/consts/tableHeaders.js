@@ -2,7 +2,7 @@ const usersTableHeaders = [
     {label: 'ID', key: 'user_id'},
     {label: 'Nombre', key: 'username'},
     {label: 'Email', key: 'email'},
-    {label: 'Teléfono', key: 'phone'},
+    {label: 'Teléfono', key: 'phone_number'},
     {label: 'Roles', key: 'roles', special: 'roles'},
     {label: 'Acciones', key: 'edit-delete', special: 'actions'}
 ];

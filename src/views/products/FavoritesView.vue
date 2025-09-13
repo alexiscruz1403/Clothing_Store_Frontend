@@ -3,7 +3,7 @@
         <div class="w-[90%] flex justify-between">
             <Heading
                 label="Mis favoritos"
-                level="1" 
+                :level="1" 
             />
             <Linker 
                 label="Volver al inicio" 
@@ -50,7 +50,7 @@ const fetchFavorites = async () => {
     try{
         await favoritesStore.fetchFavorites();
     }catch(error){
-        console.error("Error fetching products:", error);
+        if(error.response && error.response.status === 401) router.push({ name: 'login' });
     }finally{
         loading.value = false;
     }
@@ -75,7 +75,7 @@ onBeforeRouteLeave((to, from, next) => {
 })
 
 onMounted(async () => {
-    fetchFavorites();
+    await fetchFavorites();
 });
 
 </script>
