@@ -4,7 +4,7 @@
         <div class="w-full flex justify-between">
             <Heading
                 label="Mi perfil"
-                level="1"
+                :level="1"
             />
             <Linker label="Volver al inicio" @click="handleLinkerClick"/>
         </div>
@@ -18,7 +18,7 @@
                 <div class="flex flex-col gap-2 w-full">
                     <Heading
                         label="Información personal"
-                        level="2"
+                        :level="2"
                     />
                     <div class="flex flex-col gap-2">
                         <Input 
@@ -46,7 +46,7 @@
                 <div class="flex flex-col gap-2 w-full">
                     <Heading
                         label="Dirección de envío"
-                        level="2"
+                        :level="2"
                     />
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="flex flex-col gap-2">
@@ -102,7 +102,7 @@
                 <div class="flex flex-col gap-2 w-full">
                     <Heading
                         label="Cambiar contraseña"
-                        level="2"
+                        :level="2"
                     />
                     <div class="flex flex-col gap-2">
                         <Input 
@@ -320,6 +320,7 @@ const handleLinkerClick = () => {
 
 onMounted(async () => {
     try{
+        await authStore.validateSession();
         profileInfo.username = user.value.username;
         profileInfo.email = user.value.email;
         profileInfo.phone_number = user.value.phone_number;
