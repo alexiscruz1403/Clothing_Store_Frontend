@@ -116,42 +116,42 @@ const handleLogoClick = () => {
 };
 
 const handleCartClick = () => {
-    handleUserOptionsMenuClick();
+    userOptionsMenu.value = false;
     router.push({ name: 'cart' });
 };
 
 const handleProfileClick = () => {
-    handleUserOptionsMenuClick();
+    userOptionsMenu.value = false;
     router.push({ name: 'myProfile' });
 };
 
 const handleFavoritesClick = () => {
-    handleUserOptionsMenuClick();
+    userOptionsMenu.value = false;
     router.push({ name: 'favorites' });
 };
 
 const handleOrdersClick = () => {
-    handleUserOptionsMenuClick();
+    userOptionsMenu.value = false;
     router.push({ name: 'myOrders' });
 }
 
 const handleAdminClick = () => {
-    handleUserOptionsMenuClick();
+    userOptionsMenu.value = false;
     router.push({ name: 'admin' });
 };
 
 const handleLogoutClick = () => {
-    handleUserOptionsMenuClick();
+    userOptionsMenu.value = false;
     router.push({ name: 'logout' });
 }
 
 const handleRegisterClick = () => {
-    handleAuthOptionsMenuClick();
+    authOptionsMenu.value = false;
     router.push({ name: 'register' });
 };
 
 const handleLoginClick = () => {
-    handleAuthOptionsMenuClick();
+    authOptionsMenu.value = false;
     router.push({ name: 'login' });
 };
 
