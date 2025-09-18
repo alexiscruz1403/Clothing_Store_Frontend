@@ -94,6 +94,7 @@ Clothing_Store_Frontend/
 #### Admin
 
 * Admin panel with pagination
+* ![Admin panel](./docs/admin-panel.png)
 
 #### System
 
