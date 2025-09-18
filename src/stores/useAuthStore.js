@@ -24,7 +24,7 @@ export const useAuthStore = defineStore('auth', () => {
     const loginUser = async (userData) => {
         try{
             const response = await login(userData);
-            user.value = response;
+            user.value = response.user;
         }catch(error){
             user.value = null;
             throw error;
@@ -34,7 +34,7 @@ export const useAuthStore = defineStore('auth', () => {
     const registerUser = async (userData) => {
         try {
             const response = await register(userData);
-            user.value = response;
+            user.value = response.user;
         } catch (error) {
             user.value = null;
             throw error;

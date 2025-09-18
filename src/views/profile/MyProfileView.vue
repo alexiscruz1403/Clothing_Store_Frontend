@@ -52,12 +52,14 @@
                         <div class="flex flex-col gap-2">
                             <Input 
                                 label="Dirección" 
+                                placeholder="Calle, avenida"
                                 :error="profileErrors.address_line" 
                                 v-model="profileInfo.address_line"
                                 @input-change="handleInputChange('address_line')"
                             />
                             <Input 
-                                label="Número" 
+                                label="Número"
+                                placeholder="Número de la casa o departamento" 
                                 :error="profileErrors.house_number" 
                                 v-model="profileInfo.house_number"
                                 @input-change="handleInputChange('house_number')"
@@ -65,19 +67,22 @@
                         </div>
                         <div class="flex flex-col gap-2">
                             <Input 
-                                label="Provincia" 
+                                label="Provincia"
+                                placeholder="Ingrese su provincia"
                                 :error="profileErrors.state" 
                                 v-model="profileInfo.state"
                                 @input-change="handleInputChange('state')"
                             />
                             <Input 
                                 label="Ciudad" 
+                                placeholder="Ingrese su ciudad"
                                 :error="profileErrors.city" 
                                 v-model="profileInfo.city" 
                                 @input-change="handleInputChange('city')"
                             />
                             <Input 
                                 label="Código Postal"
+                                placeholder="Ingrese su código postal"
                                 type="number" 
                                 :error="profileErrors.postal_code" 
                                 v-model="profileInfo.postal_code"

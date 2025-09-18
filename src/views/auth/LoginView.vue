@@ -4,7 +4,7 @@
             <h1 class="text-2xl text-center">Iniciar sesión</h1>
             <div class="flex flex-col gap-3">
                 <Input v-model="form.email" type="text" label="Correo Electrónico" placeholder="Ingrese su nombre" :required="true" :error="emailError"/>
-                <Input v-model="form.password" type="password" label="Contraseña" placeholder="Ingrese su nombre" :required="true" :error="passwordError"/>
+                <Input v-model="form.password" type="password" label="Contraseña" placeholder="Ingrese su contraseña" :required="true" :error="passwordError"/>
                 <Button 
                     color="primary" 
                     label="Enviar" 
