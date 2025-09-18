@@ -3,11 +3,44 @@
         <form class="bg-white w-md p-4 rounded-lg shadow-lg flex flex-col gap-4" @submit.prevent="handleSubmit">
             <h1 class="text-2xl text-center">Registrarse</h1>
             <div class="flex flex-col gap-3">
-                <Input v-model="form.username" type="text" label="Nombre" placeholder="Ingrese su nombre" :required="true" :error="usernameError"/>
-                <Input v-model="form.email" type="text" label="Correo Electrónico" placeholder="Ingrese su nombre" :required="true" :error="emailError"/>
-                <Input v-model="form.password" type="password" label="Contraseña" placeholder="Ingrese su nombre" :required="true" :error="passwordError"/>
-                <Input v-model="form.address" type="text" label="Dirección" placeholder="Ingrese su nombre" :error="addressError"/>
-                <Input v-model="form.phone" type="text" label="Número de telefóno" placeholder="Ingrese su nombre" :error="phoneError"/>
+                <Input 
+                    v-model="form.username" 
+                    type="text" 
+                    label="Nombre" 
+                    placeholder="Ingrese su nombre" 
+                    :required="true" 
+                    :error="usernameError"
+                />
+                <Input 
+                    v-model="form.email" 
+                    type="text" 
+                    label="Correo Electrónico" 
+                    placeholder="Ingrese su correo electrónico" 
+                    :required="true" 
+                    :error="emailError"
+                />
+                <Input 
+                    v-model="form.password" 
+                    type="password" 
+                    label="Contraseña" 
+                    placeholder="Ingrese su contraseña" 
+                    :required="true" 
+                    :error="passwordError"
+                />
+                <Input 
+                    v-model="form.address" 
+                    type="text" 
+                    label="Dirección" 
+                    placeholder="Ingrese su dirección" 
+                    :error="addressError"
+                />
+                <Input 
+                    v-model="form.phone" 
+                    type="text" 
+                    label="Número de telefóno"
+                    placeholder="Ingrese su número de teléfono" 
+                    :error="phoneError"
+                />
                 <Button 
                     color="primary" 
                     label="Registrarse" 
